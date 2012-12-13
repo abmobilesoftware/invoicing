@@ -12,6 +12,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MvcPaging;
+using SmsFeedback_EFModels;
 
 namespace iloire_Facturacion.Controllers
 {
@@ -24,7 +25,7 @@ namespace iloire_Facturacion.Controllers
         /*CUSTOM*/
         public ViewResultBase Search(string q, int? page)
         {
-            IQueryable<Customer> customers=db.Customers;
+            IQueryable<Company> customers=db.Companies;
 
             if (q.Length == 1)//alphabetical search, first letter
             {
@@ -54,15 +55,15 @@ namespace iloire_Facturacion.Controllers
         public ViewResult Index(int? page)
         {
             int currentPageIndex = page.HasValue ? page.Value - 1 : 0;
-            return View(db.Customers.OrderBy(c=>c.Name).ToPagedList(currentPageIndex, defaultPageSize));
+            return View(db.Companies.OrderBy(c => c.Name).ToPagedList(currentPageIndex, defaultPageSize));
         }
 
         //
         // GET: /Customer/Details/5
 
-        public ViewResult Details(int id)
+        public ViewResult Details(string id)
         {
-            Customer customer = db.Customers.Find(id);
+           Company customer = db.Companies.Find(id);
             return View(customer);
         }
 
@@ -78,14 +79,14 @@ namespace iloire_Facturacion.Controllers
         // POST: /Customer/Create
 
         [HttpPost]
-        public ActionResult Create(Customer customer)
+        public ActionResult Create(Company customer)
         {
             if (ModelState.IsValid)
             {
-                db.Customers.Add(customer);
+               db.Companies.Add(customer);
                 db.SaveChanges();
                 //return list of customers as it is ajax request
-                return PartialView("CustomerListPartial", db.Customers.OrderBy(c => c.Name).ToPagedList(0, defaultPageSize));
+                return PartialView("CustomerListPartial", db.Companies.OrderBy(c => c.Name).ToPagedList(0, defaultPageSize));
                 //return RedirectToAction("Index");  
             }
             this.Response.StatusCode = 400;
@@ -95,9 +96,9 @@ namespace iloire_Facturacion.Controllers
         //
         // GET: /Customer/Edit/5
  
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string id)
         {
-            Customer customer = db.Customers.Find(id);
+           Company customer = db.Companies.Find(id);
             return PartialView(customer);
         }
 
@@ -105,7 +106,7 @@ namespace iloire_Facturacion.Controllers
         // POST: /Customer/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(Customer customer)
+        public ActionResult Edit(Company customer)
         {
             if (ModelState.IsValid)
             {
@@ -113,7 +114,7 @@ namespace iloire_Facturacion.Controllers
                 db.SaveChanges();
                 //return RedirectToAction("Index");
                 //return list of customers as it is ajax request
-                return PartialView("CustomerListPartial", db.Customers.OrderBy(c => c.Name).ToPagedList(0, defaultPageSize));
+                return PartialView("CustomerListPartial", db.Companies.OrderBy(c => c.Name).ToPagedList(0, defaultPageSize));
             }
             this.Response.StatusCode = 400;
             return PartialView(customer);
@@ -122,9 +123,9 @@ namespace iloire_Facturacion.Controllers
         //
         // GET: /Customer/Delete/5
  
-        public ActionResult Delete(int id)
+        public ActionResult Delete(string id)
         {
-            Customer customer = db.Customers.Find(id);
+           Company customer = db.Companies.Find(id);
             return View(customer);
         }
 
@@ -132,10 +133,10 @@ namespace iloire_Facturacion.Controllers
         // POST: /Customer/Delete/5
 
         [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
-        {            
-            Customer customer = db.Customers.Find(id);
-            db.Customers.Remove(customer);
+        public ActionResult DeleteConfirmed(string id)
+        {
+           Company customer = db.Companies.Find(id);
+           db.Companies.Remove(customer);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

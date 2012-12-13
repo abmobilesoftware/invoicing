@@ -53,7 +53,7 @@ namespace iloire_Facturacion
             if (System.Configuration.ConfigurationManager.AppSettings["DropDatabaseOnChange"] == "1")
             {
                 //Set initializer to populate data on database creation
-                System.Data.Entity.Database.SetInitializer(new EntitiesContextInitializer());
+                //System.Data.Entity.Database.SetInitializer(new EntitiesContextInitializer());
             }
 
             AreaRegistration.RegisterAllAreas();

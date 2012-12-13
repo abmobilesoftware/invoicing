@@ -1,13 +1,29 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
+using SmsFeedback_EFModels;
 
-public class InvoiceDetails
+public class InvoiceDetailsVM
 {
+   public InvoiceDetailsVM(InvoiceDetails dbInvDetails)
+   {
+      this.InvoiceDetailsID = dbInvDetails.InvoiceDetailsID;
+      this.InvoiceID = dbInvDetails.InvoiceInvoiceId;
+      this.Article = dbInvDetails.Article;
+      this.Qty = dbInvDetails.Quantity;
+      this.Price = dbInvDetails.Price;
+      this.VAT = dbInvDetails.VAT;
+      this.TimeStamp = dbInvDetails.DateCreated;
+      this.Invoice = new InvoiceVM(dbInvDetails.Invoice);
+   }
+   public InvoiceDetailsVM()
+   {
+   }
+
     public int InvoiceDetailsID { get; set; }
     
     public int InvoiceID { get; set; }
-    public virtual Invoice Invoice { get; set; }
+    public virtual InvoiceVM Invoice { get; set; }
 
     [Required]
     public string Article { get; set; }

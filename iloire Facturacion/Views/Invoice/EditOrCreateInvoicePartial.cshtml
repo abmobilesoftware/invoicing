@@ -5,7 +5,7 @@
 	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
 *@
 
-@model Invoice
+@model SmsFeedback_EFModels.Invoice
 
 @{
     var entityname = ViewBag.IsProposal ? "Proposal" : "Invoice";
@@ -24,7 +24,7 @@
   <fieldset>
         <legend>@entityname edition</legend>
 
-        @Html.HiddenFor(model => model.InvoiceID)
+        @Html.HiddenFor(model => model.InvoiceId)
 
         @if (!ViewBag.IsProposal)
         {
@@ -32,7 +32,7 @@
             @Html.LabelFor(model => model.InvoiceNumber)
         
             <div class="input">
-                @if (Model != null && Model.InvoiceID > 0)
+                @if (Model != null && Model.InvoiceId > 0)
                 {
                     <text>
                         @Html.TextBoxFor(model => model.InvoiceNumber, new { @class = "small disabled", disabled = true })
@@ -53,12 +53,12 @@
         }
 
 
-        <div class="clearfix">
-            @Html.LabelFor(model => model.CustomerID, "Customer")
+        <div class="clearfix">           
+            @Html.LabelFor(model => model.CompanyName, "Customer")
         
             <div class="input chzn-select">
-                @Html.DropDownList("CustomerID", String.Empty)
-                @Html.ValidationMessageFor(model => model.CustomerID)
+                @Html.DropDownList("CompanyName", String.Empty)
+                @Html.ValidationMessageFor(model => model.CompanyName)
             </div>
 		</div>
 
@@ -83,11 +83,11 @@
         @*}*@
 
         <div class="clearfix">
-            @Html.LabelFor(model => model.TimeStamp)
+            @Html.LabelFor(model => model.DateCreated)
         
             <div class="input">
-                @Html.EditorFor(model => model.TimeStamp, "Calendar")
-                @Html.ValidationMessageFor(model => model.TimeStamp)
+                @Html.EditorFor(model => model.DateCreated, "Calendar")
+                @Html.ValidationMessageFor(model => model.DateCreated)
             </div>
 		</div>
 
@@ -120,43 +120,43 @@
 
 		<div class="actions">
             <input type="submit" class="btn primary" value="Save" />
-               @if (Model != null && Model.InvoiceID > 0)
+               @if (Model != null && Model.InvoiceId > 0)
                {   <text>
-                @Html.ActionLink("Delete", "Delete", new { id = Model.InvoiceID, proposal = ViewBag.IsProposal }, new { @class = "btn" })
+                @Html.ActionLink("Delete", "Delete", new { id = Model.InvoiceId, proposal = ViewBag.IsProposal }, new { @class = "btn" })
                 </text>
                }
-            @Html.ActionLink("Print", "Print", "Invoice", new { id = Model.InvoiceID, proposal = ViewBag.IsProposal }, new { target = "_blank", @class = "btn" })
+            @Html.ActionLink("Print", "Print", "Invoice", new { id = Model.InvoiceId, proposal = ViewBag.IsProposal }, new { target = "_blank", @class = "btn" })
             
-            @Html.ActionLink("PDF", "Pdf", "Invoice", new { id = Model.InvoiceID, proposal = ViewBag.IsProposal }, new { target = "_blank", @class = "btn" })
+            @Html.ActionLink("PDF", "Pdf", "Invoice", new { id = Model.InvoiceId, proposal = ViewBag.IsProposal }, new { target = "_blank", @class = "btn" })
 
             @if (!Model.IsProposal)
             {  //even if this is an invoice, we let be printed with proposal format
-                @Html.ActionLink("Print as proposal", "Print", "Invoice", new { id = Model.InvoiceID, proposal = true }, new { target = "_blank", @class = "btn" })
+                @Html.ActionLink("Print as proposal", "Print", "Invoice", new { id = Model.InvoiceId, proposal = true }, new { target = "_blank", @class = "btn" })
             }
 
             @if (!Model.IsProposal)
             {  //even if this is an invoice, we let be printed with proposal format
-                @Html.ActionLink("PDF proposal", "Pdf", "Invoice", new { id = Model.InvoiceID, proposal = true }, new { target = "_blank", @class = "btn" })
+                @Html.ActionLink("PDF proposal", "Pdf", "Invoice", new { id = Model.InvoiceId, proposal = true }, new { target = "_blank", @class = "btn" })
             }
 
             @if (!Model.IsProposal)
             {  //even if this is an invoice, we let be printed with proposal format
-                @Html.ActionLink("Print as reminder", "Print", "Invoice", new { id = Model.InvoiceID, reminder = true }, new { target = "_blank", @class = "btn" })
+                @Html.ActionLink("Print as reminder", "Print", "Invoice", new { id = Model.InvoiceId, reminder = true }, new { target = "_blank", @class = "btn" })
             }
 
             @if (!Model.IsProposal)
             {  //even if this is an invoice, we let be printed with proposal format
-                @Html.ActionLink("PDF reminder", "Pdf", "Invoice", new { id = Model.InvoiceID, reminder = true }, new { target = "_blank", @class = "btn" })
+                @Html.ActionLink("PDF reminder", "Pdf", "Invoice", new { id = Model.InvoiceId, reminder = true }, new { target = "_blank", @class = "btn" })
             }
             
             @if (ViewBag.ShowMakeInvoice == true)
             { 
-                @Html.ActionLink("Make invoice", "Edit", "Invoice", new { id = Model.InvoiceID, makeinvoice = true }, new { @class = "btn" })
+                @Html.ActionLink("Make invoice", "Edit", "Invoice", new { id = Model.InvoiceId, makeinvoice = true }, new { @class = "btn" })
             }
 
             @if (ViewBag.ShowMakeProposal == true)
             { 
-                @Html.ActionLink("Make proposal", "Edit", "Invoice", new { id = Model.InvoiceID, makeproposal = true }, new { @class = "btn" })
+                @Html.ActionLink("Make proposal", "Edit", "Invoice", new { id = Model.InvoiceId, makeproposal = true }, new { @class = "btn" })
             }
         </div>
     </fieldset>

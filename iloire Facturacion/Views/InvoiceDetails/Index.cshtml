@@ -5,7 +5,7 @@
 	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
 *@
 
-@model IEnumerable<InvoiceDetails>
+@model IEnumerable<SmsFeedback_EFModels.InvoiceDetails>
 
 @{
     ViewBag.Title = "Index";
@@ -44,7 +44,7 @@
             @Html.DisplayFor(modelItem => item.Article)
         </td>
         <td nowrap>
-            @Html.DisplayFor(modelItem => item.Qty)
+            @Html.DisplayFor(modelItem => item.Quantity)
         </td>
         <td nowrap>
             @String.Format("{0:C}", item.Price)
@@ -73,7 +73,7 @@
     <tfoot>
         <tr>
             <td><span class="label">TOTALS: </span></td>
-            <td>@Model.Sum(i=>i.Qty)</td>
+            <td>@Model.Sum(i=>i.Quantity)</td>
             <td>-</td>
             <td>@String.Format("{0:C}", Model.Sum(i => i.Total))</td>
             <td>-</td>
@@ -101,7 +101,7 @@
 
         if (ViewBag.Invoice != null)
         {
-            var invoice = ViewBag.Invoice as Invoice;
+            var invoice = ViewBag.Invoice as SmsFeedback_EFModels.Invoice;
 
             if (invoice.AdvancePaymentTaxAmount > 0)
             { 

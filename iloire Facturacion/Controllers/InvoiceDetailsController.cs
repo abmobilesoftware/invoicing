@@ -1,4 +1,5 @@
-﻿/*
+﻿using SmsFeedback_EFModels;
+/*
 	Iván Loire - www.iloire.com
 	Please readme README file for license terms.
 
@@ -23,10 +24,10 @@ namespace iloire_Facturacion.Controllers
         public PartialViewResult IndexByInvoice(int id)
         {
             ViewBag.InvoiceID = id;
-            var invoice = db.Invoices.Where(i => i.InvoiceID == id).FirstOrDefault();
+            var invoice = db.Invoices.Where(i => i.InvoiceId == id).FirstOrDefault();
             ViewBag.Invoice = invoice;
             ViewBag.IsProposal = invoice.IsProposal;
-            var invoicedetails = db.InvoiceDetails.Include(i => i.Invoice).Where(i=>i.InvoiceID==id);
+            var invoicedetails = db.InvoiceDetails.Include(i => i.Invoice).Where(i=>i.InvoiceInvoiceId==id);
             return PartialView("Index", invoicedetails.ToList());
         }
 
@@ -57,28 +58,28 @@ namespace iloire_Facturacion.Controllers
         public ActionResult Create(int? id)
         {
             ViewBag.DefaultVAT = System.Configuration.ConfigurationManager.AppSettings["DefaultVAT"]; 
-            ViewBag.InvoiceID = new SelectList(db.Invoices, "InvoiceID", "Notes");
+            ViewBag.InvoiceID = new SelectList(db.Invoices, "InvoiceId", "Notes");
             Invoice invoice = null;
             InvoiceDetails i = null;
 
             if (id.HasValue) {
                 invoice = (from ii in db.Invoices
-                               where ii.InvoiceID == id
+                           where ii.InvoiceId == id
                                select ii).FirstOrDefault();
 
                 if (invoice != null)
                 {
                     i = new InvoiceDetails();
-                    i.InvoiceID = id.Value;
+                    i.InvoiceInvoiceId = id.Value;
                     i.Invoice = invoice;
-                    i.Qty = 1;
+                    i.Quantity = 1;
                     i.VAT = Convert.ToDecimal(System.Configuration.ConfigurationManager.AppSettings["DefaultVAT"]);
-                    i.TimeStamp = DateTime.Now;
+                    i.DateCreated = DateTime.Now;
 
                     if (invoice.InvoiceDetails.Count == 0) { //if this is the first line, we may want to name it as the invoice.
                         i.Article = invoice.Notes;
                     }
-                    ViewBag.InvoiceID = new SelectList(db.Invoices, "InvoiceID", "Notes", id.Value);
+                    ViewBag.InvoiceId = new SelectList(db.Invoices, "InvoiceId", "Notes", id.Value);
                 }
             }
 
@@ -102,14 +103,14 @@ namespace iloire_Facturacion.Controllers
                 db.InvoiceDetails.Add(invoicedetails);
                 db.SaveChanges();
 
-                var invoice = (from i in db.Invoices where i.InvoiceID == invoicedetails.InvoiceID select i).FirstOrDefault();
+                var invoice = (from i in db.Invoices where i.InvoiceId == invoicedetails.InvoiceInvoiceId select i).FirstOrDefault();
                 ViewBag.Invoice = invoice;
                 ViewBag.IsProposal = invoice.IsProposal;
 
-                return PartialView("Index", db.InvoiceDetails.Where(i => i.InvoiceID == invoicedetails.InvoiceID));
+                return PartialView("Index", db.InvoiceDetails.Where(i => i.InvoiceInvoiceId == invoicedetails.InvoiceInvoiceId));
             }
-            
-            ViewBag.InvoiceID = new SelectList(db.Invoices, "InvoiceID", "Notes", invoicedetails.InvoiceID);
+
+            ViewBag.InvoiceID = new SelectList(db.Invoices, "InvoiceID", "Notes", invoicedetails.InvoiceInvoiceId);
             this.Response.StatusCode = 400;
             return PartialView("Create", invoicedetails);
         }
@@ -120,7 +121,7 @@ namespace iloire_Facturacion.Controllers
         public ActionResult Edit(int id)
         {
             InvoiceDetails invoicedetails = db.InvoiceDetails.Find(id);
-            ViewBag.InvoiceID = new SelectList(db.Invoices, "InvoiceID", "Notes", invoicedetails.InvoiceID);
+            ViewBag.InvoiceID = new SelectList(db.Invoices, "InvoiceID", "Notes", invoicedetails.InvoiceInvoiceId);
             return PartialView(invoicedetails);
         }
 
@@ -134,12 +135,12 @@ namespace iloire_Facturacion.Controllers
             {
                 db.Entry(invoicedetails).State = EntityState.Modified;
                 db.SaveChanges();
-                var invoice = (from i in db.Invoices where i.InvoiceID == invoicedetails.InvoiceID select i).FirstOrDefault();
+                var invoice = (from i in db.Invoices where i.InvoiceId == invoicedetails.InvoiceInvoiceId select i).FirstOrDefault();
                 ViewBag.Invoice = invoice;
                 ViewBag.IsProposal = invoice.IsProposal;
-                return PartialView("Index", db.InvoiceDetails.Where(i => i.InvoiceID == invoicedetails.InvoiceID));
-            }       
-            ViewBag.InvoiceID = new SelectList(db.Invoices, "InvoiceID", "Notes", invoicedetails.InvoiceID);
+                return PartialView("Index", db.InvoiceDetails.Where(i => i.InvoiceInvoiceId == invoicedetails.InvoiceInvoiceId));
+            }
+            ViewBag.InvoiceID = new SelectList(db.Invoices, "InvoiceID", "Notes", invoicedetails.InvoiceInvoiceId);
             this.Response.StatusCode = 400;
             return PartialView("Edit", invoicedetails);
         }
@@ -164,7 +165,7 @@ namespace iloire_Facturacion.Controllers
             {
                 db.InvoiceDetails.Remove(invoicedetails);
                 db.SaveChanges();
-                return RedirectToAction("IndexByInvoice", "InvoiceDetails", new { id = invoicedetails.InvoiceID });
+                return RedirectToAction("IndexByInvoice", "InvoiceDetails", new { id = invoicedetails.InvoiceInvoiceId });
             }
             else {
                 this.Response.StatusCode = 400;

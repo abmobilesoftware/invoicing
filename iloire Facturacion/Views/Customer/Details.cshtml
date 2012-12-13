@@ -5,7 +5,7 @@
 	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
 *@
 
-@model Customer
+@model SmsFeedback_EFModels.Company
 
 @{
     ViewBag.Title = "Details";
@@ -46,7 +46,7 @@
     </p>
 	<p>
         <strong>Zip Code: </strong>
-         @Html.DisplayFor(model => model.CP)
+         @Html.DisplayFor(model => model.PostalCode)
     </p>
 	<p>
         <strong>City: </strong>
@@ -54,16 +54,12 @@
     </p>
 	<p>
         <strong>Phone1: </strong>
-         @Html.DisplayFor(model => model.Phone1)
+         @Html.DisplayFor(model => model.Landline)
     </p>
 	<p>
         <strong>Phone2: </strong>
-         @Html.DisplayFor(model => model.Phone2)
-    </p>
-	<p>
-        <strong>Fax: </strong>
-         @Html.DisplayFor(model => model.Fax)
-    </p>
+         @Html.DisplayFor(model => model.Mobile)
+    </p>	
 	
 </fieldset>
 <p>
@@ -73,8 +69,8 @@
 
 <div class="span12">
     <h2>Last invoices</h2>
-    @{Html.RenderAction("LastInvoicesByCustomer", "Invoice", new { id = Model.CustomerID });}
+    @{Html.RenderAction("LastInvoicesByCustomer", "Invoice", new { id = Model.Name });}
     
     <h2>Last proposals</h2>
-    @{Html.RenderAction("LastProposalsByCustomer", "Invoice", new { id = Model.CustomerID });}
+    @{Html.RenderAction("LastProposalsByCustomer", "Invoice", new { id = Model.Name });}
 </div>

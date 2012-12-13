@@ -5,11 +5,11 @@
 	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
 *@
 
-@model Invoice
+@model SmsFeedback_EFModels.Invoice
 
 @{
-    ViewBag.Title = "FAC" + Model.TimeStamp.ToString("yyyy") + "-" + Model.InvoiceNumber + " " + Model.Name + " " + Model.Customer.Name;
-    ViewBag.Invoicename = "FAC" + Model.TimeStamp.ToString("yyyy") + "-" + Model.InvoiceNumber;
+   ViewBag.Title = "FAC" + Model.DateCreated.ToString("yyyy") + "-" + Model.InvoiceNumber + " " + Model.Name + " " + Model.Company.Name;
+   ViewBag.Invoicename = "FAC" + Model.DateCreated.ToString("yyyy") + "-" + Model.InvoiceNumber;
 
     if(Model.TotalToPay <= 2500) {
         ViewBag.IncassoKosten = (float)Model.TotalToPay * 0.15;
@@ -46,7 +46,7 @@
 <table class="invoiceHeader">
 <tr>
 <td>
- <img src="@Url.Content("~/Content/images/logo.png")" height="55" style="float:left;" />
+ <img src="@Url.Content("~/Content/images/06-web-2_225.png")" height="55" style="float:left;" />
 </td>
 </tr>
 
@@ -55,23 +55,23 @@
             <blockquote>
             <p>
                 <strong>
-                    @Html.DisplayFor(model => model.Customer.Name)
+                    @Html.DisplayFor(model => model.Company.Name)
                 </strong>
             </p>
 
             <p>
                 @Resources.Print.Invoice_CompanyNumber:
                 <strong>
-                    @Html.DisplayFor(model => model.Customer.CompanyNumber)
+                    @Html.DisplayFor(model => model.Company.CompanyNumber)
                 </strong>
             </p>
              <p>
-                @Html.DisplayFor(model => model.Customer.Address)
+                @Html.DisplayFor(model => model.Company.Address)
             </p>
 
              <p>
-                @Html.DisplayFor(model => model.Customer.CP), 
-                @Html.DisplayFor(model => model.Customer.City)
+                @Html.DisplayFor(model => model.Company.PostalCode), 
+                @Html.DisplayFor(model => model.Company.City)
             </p>	      
             </blockquote>
     </td>
@@ -116,7 +116,7 @@
             @ViewBag.Invoicename
         </td>
         <td>
-            @Model.TimeStamp.ToString("dd-MM-yyyy")
+            @Model.DateCreated.ToString("dd-MM-yyyy")
         </td>
         <td>
             @Model.DueDate.ToString("dd-MM-yyyy")

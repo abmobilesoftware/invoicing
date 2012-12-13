@@ -5,21 +5,21 @@
 	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
 *@
 
-@model Invoice
+@model SmsFeedback_EFModels.Invoice
 
 @{
-    ViewBag.Title = DateTime.Now.Year + " " + Model.Name + Model.Notes + " - " + Model.Customer.Name;
+    ViewBag.Title = DateTime.Now.Year + " " + Model.Name + Model.Notes + " - " + Model.Company.Name;
     Layout = "~/Views/Shared/_LayoutPrint.cshtml";
 }
 
 <table class="invoiceHeader">
 <tr>
 <td>
- <img src="@Url.Content("~/Content/images/logo.png")" height="55" style="float:left;" />
+ <img src="@Url.Content("~/Content/images/06-web-2_225.png")" height="55" style="float:left;" />
 </td>
 <td style="text-align:right">
  <h2>@string.Format(@Resources.Print.Proposal, @Model.InvoiceNumber, DateTime.Now.Year)</h2> 
-  @Model.TimeStamp.ToLongDateString()
+  @Model.DateCreated.ToLongDateString()
 </td>
 </tr>
 </table>
@@ -52,23 +52,23 @@
             <blockquote>
             <p>
                 <strong>
-                    @Html.DisplayFor(model => model.Customer.Name)
+                    @Html.DisplayFor(model => model.Company.Name)
                 </strong>
             </p>
 
             <p>
                 @Resources.Print.Invoice_CompanyNumber:
                 <strong>
-                    @Html.DisplayFor(model => model.Customer.CompanyNumber)
+                    @Html.DisplayFor(model => model.Company.CompanyNumber)
                 </strong>
             </p>
              <p>
-                @Html.DisplayFor(model => model.Customer.Address)
+                @Html.DisplayFor(model => model.Company.Address)
             </p>
 
              <p>
-                @Html.DisplayFor(model => model.Customer.CP), 
-                @Html.DisplayFor(model => model.Customer.City)
+                @Html.DisplayFor(model => model.Company.PostalCode), 
+                @Html.DisplayFor(model => model.Company.City)
             </p>	      
             </blockquote>
     </td>
@@ -115,7 +115,7 @@
             @Html.DisplayFor(modelItem => item.Article)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Qty)
+            @Html.DisplayFor(modelItem => item.Quantity)
         </td>
         <td>
             @String.Format("{0:C}", item.Price)

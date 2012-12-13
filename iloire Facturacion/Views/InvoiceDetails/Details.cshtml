@@ -5,7 +5,7 @@
 	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
 *@
 
-@model InvoiceDetails
+@model SmsFeedback_EFModels.InvoiceDetails
 
 @{
     ViewBag.Title = "Details";
@@ -24,7 +24,7 @@
     </p>
 	<p>
         <strong>Qty: </strong>
-         @Html.DisplayFor(model => model.Qty)
+         @Html.DisplayFor(model => model.Quantity)
     </p>
 	<p>
         <strong>Price: </strong>
@@ -36,11 +36,11 @@
     </p>
 	<p>
         <strong>TimeStamp: </strong>
-         @Html.DisplayFor(model => model.TimeStamp)
+         @Html.DisplayFor(model => model.DateCreated)
     </p>
 </fieldset>
 <p>
 
     @Html.ActionLink("Edit", "Edit", new { id=Model.InvoiceDetailsID }, new { @class = "btn"}) |
-    @Html.ActionLink("Back to invoice", "Details", "Invoice", new { id = Model.InvoiceID }, new { @class = "btn" })
+    @Html.ActionLink("Back to invoice", "Details", "Invoice", new { id = Model.InvoiceDetailsID }, new { @class = "btn" })
 </p>

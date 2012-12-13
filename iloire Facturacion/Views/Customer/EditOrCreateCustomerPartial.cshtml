@@ -5,13 +5,13 @@
 	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
 *@
 
-@model Customer
+@model SmsFeedback_EFModels.Company
 
  <fieldset>
  
         @if (Model != null)
         {   <text>
-            @Html.HiddenFor(model => model.CustomerID)
+            @Html.HiddenFor(model => model.Name)
             </text>
         }
 
@@ -46,11 +46,11 @@
 		    </div>
 
             <div class="span4">
-                @Html.LabelFor(model => model.CP)
+                @Html.LabelFor(model => model.PostalCode)
         
                 <div class="input">
-                    @Html.TextBoxFor(model => model.CP, new { @class="span3"})
-                    @Html.ValidationMessageFor(model => model.CP)
+                    @Html.TextBoxFor(model => model.PostalCode, new { @class="span3"})
+                    @Html.ValidationMessageFor(model => model.PostalCode)
                 </div>
 		    </div>
 
@@ -87,32 +87,24 @@
 
         <div class="clearfix">
             <div class="span4">
-                @Html.LabelFor(model => model.Phone1)
+                @Html.LabelFor(model => model.Landline)
         
                 <div class="input">
-                    @Html.TextBoxFor(model => model.Phone1, new { @class = "span3" })
-                    @Html.ValidationMessageFor(model => model.Phone1)
+                    @Html.TextBoxFor(model => model.Landline, new { @class = "span3" })
+                    @Html.ValidationMessageFor(model => model.Landline)
                 </div>
             </div>
 		
 
             <div class="span4">
-                @Html.LabelFor(model => model.Phone2)
+                @Html.LabelFor(model => model.Mobile)
         
                 <div class="input">
-                    @Html.TextBoxFor(model => model.Phone2, new { @class = "span3" })
-                    @Html.ValidationMessageFor(model => model.Phone2)
+                    @Html.TextBoxFor(model => model.Mobile, new { @class = "span3" })
+                    @Html.ValidationMessageFor(model => model.Mobile)
                 </div>
 		    </div>
-
-           <div class="span4">
-                @Html.LabelFor(model => model.Fax)
-        
-                <div class="input">
-                    @Html.TextBoxFor(model => model.Fax, new { @class = "span3" })
-                    @Html.ValidationMessageFor(model => model.Fax)
-                </div>
-		    </div>
+           
         </div>
 
      

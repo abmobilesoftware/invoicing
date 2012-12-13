@@ -14,6 +14,7 @@ using System.Web.Mvc;
 using MvcPaging;
 using System.Globalization;
 using Rotativa;
+using SmsFeedback_EFModels;
 
 namespace iloire_Facturacion.Controllers
 {
@@ -39,26 +40,26 @@ namespace iloire_Facturacion.Controllers
             Session["invoiceFrom"] = from;
             Session["invoiceTo"] = to;
 
-            var invoices = db.Invoices.Include(i => i.InvoiceDetails).Include(i => i.Customer);
+            var invoices = db.Invoices.Include(i => i.InvoiceDetails).Include(i => i.Company);
 
             if (!string.IsNullOrWhiteSpace(from))
             {
                 DateTime fromDate;
                 if (DateTime.TryParse(from, CultureInfo.CurrentUICulture, DateTimeStyles.AssumeLocal, out fromDate))
-                    invoices = invoices.Where(t => t.TimeStamp >= fromDate);
+                    invoices = invoices.Where(t => t.DateCreated >= fromDate);
             }
             if (!string.IsNullOrWhiteSpace(to)) 
             {
                 DateTime toDate;
                 if (DateTime.TryParse(to, CultureInfo.CurrentUICulture, DateTimeStyles.AssumeLocal, out toDate))
-                    invoices = invoices.Where(t => t.TimeStamp <= toDate);
+                   invoices = invoices.Where(t => t.DateCreated <= toDate);
             }
 
             if (!string.IsNullOrWhiteSpace(text))
             {
                 invoices = invoices.Where(t => (t.Notes.ToLower().IndexOf(text.ToLower()) > -1) 
                     || (t.Name.ToLower().IndexOf(text.ToLower()) > -1)
-                    || (t.Customer.Name.ToLower().IndexOf(text.ToLower()) > -1)
+                    || (t.Company.Name.ToLower().IndexOf(text.ToLower()) > -1)
                 );
             }
 
@@ -74,7 +75,7 @@ namespace iloire_Facturacion.Controllers
             else
                 invoices = invoices.Where(i => i.InvoiceNumber > 0); //we can not use  Where(i => i.IsProposal) from within the LINQ db context                     
 
-            invoices_paged = invoices.OrderByDescending(i => i.TimeStamp).ToPagedList(currentPageIndex, (pagesize.HasValue) ? pagesize.Value : defaultPageSize);
+            invoices_paged = invoices.OrderByDescending(i => i.DateCreated).ToPagedList(currentPageIndex, (pagesize.HasValue) ? pagesize.Value : defaultPageSize);
 
             FillIndexViewBags(invoices_paged);
 
@@ -86,31 +87,32 @@ namespace iloire_Facturacion.Controllers
 
         public PartialViewResult UnPaidInvoices()
         {
-            var invoices = db.Invoices.Include(i => i.Customer).Where(i => i.Paid == false && i.DueDate >= DateTime.Now && i.InvoiceNumber> 0).OrderBy(i => i.DueDate);
+           var invoices = db.Invoices.Include(i => i.Company).Where(i => i.Paid == false && i.DueDate >= DateTime.Now && i.InvoiceNumber > 0).OrderBy(i => i.DueDate);
             return PartialView("InvoicesListPartial", invoices.ToList());
         }
 
         public PartialViewResult LatestProposals() {
-            var invoices = db.Invoices.Include(i => i.Customer).Where(i => i.InvoiceNumber == 0).OrderByDescending(i => i.TimeStamp);
+           var invoices = db.Invoices.Include(i => i.Company).Where(i => i.InvoiceNumber == 0).OrderByDescending(i => i.DateCreated);
             return PartialView("InvoicesListPartial", invoices.ToList());  
         }
 
         public PartialViewResult OverDueInvoices()
         {
-            var invoices = db.Invoices.Include(i => i.Customer).Where(i => i.Paid == false && i.DueDate < DateTime.Now && i.InvoiceNumber > 0).OrderBy(i => i.DueDate);
+           var inv = db.Invoices.ToList();
+           var invoices = db.Invoices.Include(i => i.Company).Where(i => i.Paid == false && i.DueDate < DateTime.Now && i.InvoiceNumber > 0).OrderBy(i => i.DueDate);
             return PartialView("InvoicesListPartial", invoices.ToList());
         }
 
         
-        public PartialViewResult LastInvoicesByCustomer(int id)
+        public PartialViewResult LastInvoicesByCustomer(string id)
         {
-            var invoices = db.Invoices.Include(i => i.Customer).Where(i => i.CustomerID == id && i.InvoiceNumber > 0).OrderByDescending(i => i.TimeStamp);
+           var invoices = db.Invoices.Include(i => i.Company).Where(i => i.Name == id && i.InvoiceNumber > 0).OrderByDescending(i => i.DateCreated);
             return PartialView("InvoicesListPartial", invoices.ToList());  
         }
 
-        public PartialViewResult LastProposalsByCustomer(int id)
+        public PartialViewResult LastProposalsByCustomer(string id)
         {
-            var invoices = db.Invoices.Include(i => i.Customer).Where(i => i.CustomerID == id && i.InvoiceNumber == 0).OrderByDescending(i=>i.TimeStamp);
+           var invoices = db.Invoices.Include(i => i.Company).Where(i => i.Name == id && i.InvoiceNumber == 0).OrderByDescending(i => i.DateCreated);
             return PartialView("InvoicesListPartial", invoices.ToList());  
         }
 
@@ -139,7 +141,7 @@ namespace iloire_Facturacion.Controllers
 
 
             int currentPageIndex = page.HasValue ? page.Value - 1 : 0;
-            var invoices = db.Invoices.Include(i => i.InvoiceDetails).Include(i => i.Customer);
+            var invoices = db.Invoices.Include(i => i.InvoiceDetails).Include(i => i.Company);
             ViewBag.IsProposal = proposal;
             ViewBag.IsReminder = reminder;
             
@@ -153,7 +155,7 @@ namespace iloire_Facturacion.Controllers
                 invoices = invoices.Where(i => i.InvoiceNumber > 0);  //we can not use  Where(i => i.IsProposal) from within the LINQ db context                
             }
 
-            invoices_paged = invoices.OrderByDescending(i => i.TimeStamp).ToPagedList(currentPageIndex, (pagesize.HasValue) ? pagesize.Value : defaultPageSize);
+            invoices_paged = invoices.OrderByDescending(i => i.DateCreated).ToPagedList(currentPageIndex, (pagesize.HasValue) ? pagesize.Value : defaultPageSize);
 
             FillIndexViewBags(invoices_paged);
 
@@ -184,7 +186,7 @@ namespace iloire_Facturacion.Controllers
             catch
             {
             }
-
+            System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
 
             ViewBag.Print = true;
             ViewBag.MyCompany = System.Configuration.ConfigurationManager.AppSettings["MyCompanyName"];
@@ -220,7 +222,7 @@ namespace iloire_Facturacion.Controllers
         public ActionResult Create(bool? proposal=false)
         {
             Invoice i = new Invoice();
-            i.TimeStamp = DateTime.Now;
+            i.DateCreated = DateTime.Now;
             //i.DueDate = DateTime.Now.AddDays(30); //30 days after today
             i.DueDate = DateTime.Now.AddDays(14); //14 days after today
             i.AdvancePaymentTax = Convert.ToDecimal(System.Configuration.ConfigurationManager.AppSettings["DefaultAdvancePaymentTax"]);
@@ -235,7 +237,7 @@ namespace iloire_Facturacion.Controllers
                     i.InvoiceNumber = next_invoice.InvoiceNumber + 1;
             }
             ViewBag.IsProposal = proposal;
-            ViewBag.CustomerID = new SelectList(db.Customers.OrderBy(c=>c.Name), "CustomerID", "Name");
+            ViewBag.CompanyName = new SelectList(db.Companies.OrderBy(c => c.Name), "Name", "Name");
             return View(i);
         }
 
@@ -246,7 +248,7 @@ namespace iloire_Facturacion.Controllers
         [ValidateInput(false)]
         public ActionResult Create(Invoice invoice, bool? proposal = false, bool? reminder = false)
         {
-            ViewBag.CustomerID = new SelectList(db.Customers.OrderBy(c => c.Name), "CustomerID", "Name", invoice.CustomerID);
+           ViewBag.CompanyName = new SelectList(db.Companies.OrderBy(c => c.Name), "Name", "Name", invoice.CompanyName);
             ViewBag.IsProposal = proposal;
             ViewBag.IsReminder = reminder;
 
@@ -264,7 +266,7 @@ namespace iloire_Facturacion.Controllers
                 }
                 db.Invoices.Add(invoice);
                 db.SaveChanges();
-                return RedirectToAction("Edit", "Invoice", new { id = invoice.InvoiceID, proposal = proposal });  
+                return RedirectToAction("Edit", "Invoice", new { id = invoice.InvoiceId, proposal = proposal });  
             }
             return View(invoice);
         }
@@ -275,7 +277,7 @@ namespace iloire_Facturacion.Controllers
         public ActionResult Edit(int id, bool? proposal = false, bool? makeinvoice = false, bool? makeproposal = false, bool? reminder = false)
         {
             Invoice invoice = db.Invoices.Find(id);
-            ViewBag.CustomerID = new SelectList(db.Customers.OrderBy(c => c.Name), "CustomerID", "Name", invoice.CustomerID);
+            ViewBag.CompanyName = new SelectList(db.Companies.OrderBy(c => c.Name), "Name", "Name", invoice.CompanyName);
 
             if (makeinvoice == true)
             {
@@ -288,7 +290,7 @@ namespace iloire_Facturacion.Controllers
                 if (next_invoice != null)
                     invoice.InvoiceNumber = next_invoice.InvoiceNumber + 1; //assign next available invoice number 
 
-                invoice.TimeStamp = DateTime.Now;
+                invoice.DateCreated = DateTime.Now;
                 invoice.DueDate = DateTime.Now.AddDays(30);
 
                 ViewBag.Warning = "The current item is going to be converted on Invoice. A new InvoiceNumber has been pre-assigned. The dates will be modified accordingly. Click on 'Save' to continue.";
@@ -324,7 +326,7 @@ namespace iloire_Facturacion.Controllers
         [ValidateInput(false)]
         public ActionResult Edit(Invoice invoice, bool? proposal = false, bool? reminder = false)
         {
-            ViewBag.CustomerID = new SelectList(db.Customers.OrderBy(c => c.Name), "CustomerID", "Name", invoice.CustomerID);
+           ViewBag.CompanyName = new SelectList(db.Companies.OrderBy(c => c.Name), "Name", "Name", invoice.CompanyName);
             ViewBag.IsProposal = proposal;
             ViewBag.IsPrReminder = reminder;
             if (ModelState.IsValid)
@@ -334,7 +336,7 @@ namespace iloire_Facturacion.Controllers
                     //make sure invoice number doesn't exist
                     var invoice_exists = (from inv in db.Invoices
                                           where inv.InvoiceNumber == invoice.InvoiceNumber
-                                          && inv.InvoiceID != invoice.InvoiceID
+                                          && inv.InvoiceId != invoice.InvoiceId
                                           select inv).Count();
 
                     if (invoice_exists > 0)

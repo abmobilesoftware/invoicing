@@ -6,7 +6,7 @@
 *@
 @using MvcPaging;
 
-@model IPagedList<Customer>
+@model IPagedList<SmsFeedback_EFModels.Company>
            
 <div class="pagingContainer">
         @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
@@ -46,15 +46,15 @@
                 @Html.DisplayFor(modelItem => item.City)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Phone1)
+                @Html.DisplayFor(modelItem => item.Landline)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td nowrap>
-                @Html.ActionLink("Edit", "Edit", new { id = item.CustomerID }, new { idCustomer = item.CustomerID, @class = "btn primary editCustomer" }) 
-                @Html.ActionLink("Details", "Details", new { id=item.CustomerID }, new { @class = "btn"}) 
-                @Html.ActionLink("Delete", "Delete", new { id=item.CustomerID }, new { @class = "btn"})
+                @Html.ActionLink("Edit", "Edit", new { id = item.Name }, new { idCustomer = item.Name, @class = "btn primary editCustomer" }) 
+                @Html.ActionLink("Details", "Details", new { id=item.Name }, new { @class = "btn"}) 
+                @Html.ActionLink("Delete", "Delete", new { id=item.Name }, new { @class = "btn"})
             </td>
         </tr>
     }

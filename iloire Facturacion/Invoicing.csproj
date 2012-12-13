@@ -26,6 +26,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <JSLintSkip>\Scripts\bootstrap-dropdown.js|\Scripts\bootstrap-modal.js|\Scripts\chosen.jquery.js|\Scripts\jquery-1.7.2.js|\Scripts\jquery-1.7.2.min.js|\Scripts\jquery-calendar.js|\Scripts\jquery-ui-1.8.11.js|\Scripts\jquery-ui-1.8.11.min.js|\Scripts\jquery.cleditor.min.js|\Scripts\jquery.tablesorter.min.js|\Scripts\jquery.unobtrusive-ajax.js|\Scripts\jquery.unobtrusive-ajax.min.js|\Scripts\jquery.validate-vsdoc.js|\Scripts\jquery.validate.js|\Scripts\jquery.validate.min.js|\Scripts\jquery.validate.unobtrusive.js|\Scripts\jquery.validate.unobtrusive.min.js|\Scripts\methods_es.js|\Scripts\modernizr-1.7.js|\Scripts\modernizr-1.7.min.js</JSLintSkip>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -62,8 +63,9 @@
     <Reference Include="Elmah">
       <HintPath>..\packages\elmah.corelibrary.1.2\lib\Elmah.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.4.1.10331.0\lib\EntityFramework.dll</HintPath>
+    <Reference Include="EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Rotativa">
@@ -76,6 +78,9 @@
     </Reference>
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Providers">
+      <HintPath>..\packages\Microsoft.AspNet.Providers.Core.1.0\lib\net40\System.Web.Providers.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -137,9 +142,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InvoiceController.cs" />
     <Compile Include="Controllers\InvoiceDetailsController.cs" />
-    <Compile Include="Controllers\ProviderController.cs" />
-    <Compile Include="Controllers\PurchaseController.cs" />
-    <Compile Include="Controllers\PurchaseTypeController.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -148,23 +150,18 @@
     <Compile Include="Models\Attributes\HandleErrorAttribute.cs" />
     <Compile Include="Models\Helper\TextHelper.cs" />
     <Compile Include="Models\DBContext.cs" />
-    <Compile Include="Models\EntitiesContextDBInitializer.cs" />
     <Compile Include="Models\Helper\TAXDateHelper.cs" />
     <Compile Include="Models\Paging\IPagedList.cs" />
     <Compile Include="Models\Paging\PagedList.cs" />
     <Compile Include="Models\Paging\Pager.cs" />
     <Compile Include="Models\Paging\PagingExtensions.cs" />
-    <Compile Include="Models\POCO\Customer.cs" />
     <Compile Include="Models\POCO\ModelView\QuarterSummary.cs" />
     <Compile Include="Models\POCO\ModelView\YearSummary.cs" />
     <Compile Include="Models\POCO\ModelView\Summary.cs" />
     <Compile Include="Models\POCO\Provider.cs" />
-    <Compile Include="Models\POCO\InvoiceDetails.cs" />
     <Compile Include="Models\POCO\Purchase.cs" />
-    <Compile Include="Models\POCO\Invoice.cs" />
     <Compile Include="Models\POCO\PurchaseType.cs" />
     <Compile Include="Models\POCO\User.cs" />
-    <Compile Include="Models\Security\InvoicingMembershipProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -172,9 +169,9 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.print.css" />
     <Content Include="Content\chosen.css" />
+    <Content Include="Content\images\06-web-2_225.png" />
     <Content Include="Content\images\chosen-sprite.png" />
     <Content Include="Content\images\logo.png" />
-    <Content Include="Content\images\logo_merenita.png" />
     <Content Include="Content\jquery.cleditor.css" />
     <Content Include="Content\Site.print.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -229,15 +226,6 @@
     <Content Include="Scripts\methods_es.js" />
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />
-    <Content Include="Web.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
@@ -253,10 +241,20 @@
     <Content Include="Views\Shared\_LogOnPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="App_Error\" />
+    <Folder Include="Models\Security\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -350,6 +348,12 @@
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>Print.nl.designer.cs</LastGenOutput>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\smsFeedback\SmsFeedback_EFModels\SmsFeedback_EFModels.csproj">
+      <Project>{f2dfc840-77cc-44f6-93d8-559639ad2580}</Project>
+      <Name>SmsFeedback_EFModels</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

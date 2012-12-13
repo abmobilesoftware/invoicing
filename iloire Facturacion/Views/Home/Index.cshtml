@@ -22,7 +22,7 @@
         @{Html.RenderAction("LatestProposals","Invoice");}
     </td>
     <td>
-        <h3>Recent purchases</h3>
+       @* <h3>Recent purchases</h3>
         @{Html.RenderAction("RecentPurchases","Purchase", new {top=5});}
 
         <h3>This Quarter</h3>
@@ -34,7 +34,7 @@
         @{Html.RenderAction("YearSummary", "Reports", new {id=DateTime.Now.Year});}
 
         <h3>Last year</h3>
-        @{Html.RenderAction("YearSummary", "Reports", new { id = DateTime.Now.Year-1 });}
+        @{Html.RenderAction("YearSummary", "Reports", new { id = DateTime.Now.Year-1 });}*@
     </td>
 </tr>
 </table>

@@ -5,11 +5,11 @@
 	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
 *@
 
-@model Invoice
+@model SmsFeedback_EFModels.Invoice
 
 @{
-    ViewBag.Title = "FAC" + Model.TimeStamp.ToString("yyyy") + "-" + Model.InvoiceNumber + " " + Model.Name + " " + Model.Customer.Name;
-    ViewBag.Invoicename = "FAC" + Model.TimeStamp.ToString("yyyy") + "-" + Model.InvoiceNumber;
+   ViewBag.Title = "FAC" + Model.DateCreated.ToString("yyyy") + "-" + Model.InvoiceNumber + " " + Model.Name + " " + Model.Company.Name;
+   ViewBag.Invoicename = "FAC" + Model.DateCreated.ToString("yyyy") + "-" + Model.InvoiceNumber;
     Layout = "~/Views/Shared/_LayoutPrint.cshtml";
     
 }
@@ -17,11 +17,11 @@
 <table class="invoiceHeader">
 <tr>
 <td>
- <img src="@Url.Content("~/Content/images/logo.png")" height="55" style="float:left;" />
+ <img src="@Url.Content("~/Content/images/06-web-2_225.png")" height="55" style="float:left;" />
 </td>
 <td style="text-align:right">
- <h2>@string.Format(@Resources.Print.Invoice_Number, @Model.InvoiceNumber, @Model.TimeStamp.ToString("yyyy"))</h2> 
-  @Model.TimeStamp.ToLongDateString()
+ <h2>@string.Format(@Resources.Print.Invoice_Number, @Model.InvoiceNumber, @Model.DateCreated.ToString("yyyy"))</h2> 
+  @Model.DateCreated.ToLongDateString()
 </td>
 </tr>
 </table>
@@ -54,23 +54,23 @@
             <blockquote>
             <p>
                 <strong>
-                    @Html.DisplayFor(model => model.Customer.Name)
+                    @Html.DisplayFor(model => model.Company.Name)
                 </strong>
             </p>
 
             <p>
                 @Resources.Print.Invoice_CompanyNumber:
                 <strong>
-                    @Html.DisplayFor(model => model.Customer.CompanyNumber)
+                    @Html.DisplayFor(model => model.Company.CompanyNumber)
                 </strong>
             </p>
              <p>
-                @Html.DisplayFor(model => model.Customer.Address)
+                @Html.DisplayFor(model => model.Company.Address)
             </p>
 
              <p>
-                @Html.DisplayFor(model => model.Customer.CP), 
-                @Html.DisplayFor(model => model.Customer.City)
+                @Html.DisplayFor(model => model.Company.PostalCode), 
+                @Html.DisplayFor(model => model.Company.City)
             </p>	      
             </blockquote>
     </td>
@@ -115,7 +115,7 @@
             @Html.DisplayFor(modelItem => item.Article)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Qty)
+            @Html.DisplayFor(modelItem => item.Quantity)
         </td>
         <td>
             @String.Format("{0:C}", item.Price)
@@ -135,7 +135,7 @@
     <tfoot>
         <tr>
          <td class="invoiceFooterTitle">@Resources.Print.Invoice_SubTotal:</td>
-            <td>@Model.InvoiceDetails.Sum(i=>i.Qty)</td>
+            <td>@Model.InvoiceDetails.Sum(i=>i.Quantity)</td>
             <td>-</td>
             <td>@String.Format("{0:C}", Model.NetTotal)</td>
             <td>@String.Format("{0:C}", Model.VATAmount)</td>

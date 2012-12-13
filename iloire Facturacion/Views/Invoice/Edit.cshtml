@@ -5,7 +5,7 @@
 	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
 *@
 
-@model Invoice
+@model SmsFeedback_EFModels.Invoice
 
 @{
     ViewBag.Title = "Edit";
@@ -133,12 +133,12 @@
 
 <td width="60%">
      <p>
-         <a href="@Url.Action("Create", "InvoiceDetails", new { id = Model.InvoiceID })" idInvoice="@Model.InvoiceID" class="btn primary newDetailInvoice">Create new @entityname details</a>
+         <a href="@Url.Action("Create", "InvoiceDetails", new { id = Model.InvoiceId })" idInvoice="@Model.InvoiceId" class="btn primary newDetailInvoice">Create new @entityname details</a>
      </p>
      <div id="msgErrorNewInvoiceDetails"></div>
 
     <div id="invoiceDetailsList">
-        @{Html.RenderAction("IndexByInvoice", "InvoiceDetails", new { id = Model.InvoiceID, proposal = ViewBag.IsProposal});}
+        @{Html.RenderAction("IndexByInvoice", "InvoiceDetails", new { id = Model.InvoiceId, proposal = ViewBag.IsProposal });}
     </div>
 </td>
 </tr>

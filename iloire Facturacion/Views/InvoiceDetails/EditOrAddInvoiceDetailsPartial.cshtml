@@ -5,12 +5,12 @@
 	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
 *@
 
-@model InvoiceDetails
+@model SmsFeedback_EFModels.InvoiceDetails
            
 
 <fieldset>
         @Html.HiddenFor(model => model.InvoiceDetailsID)
-         @Html.Hidden("InvoiceID", Model.InvoiceID)
+         @Html.Hidden("InvoiceInvoiceID", Model.InvoiceInvoiceId)
    
 
         <div class="clearfix">
@@ -23,11 +23,11 @@
 		</div>
 
         <div class="clearfix">
-            @Html.LabelFor(model => model.Qty)
+            @Html.LabelFor(model => model.Quantity)
         
         <div class="input">
-            @Html.EditorFor(model => model.Qty, "Number")
-            @Html.ValidationMessageFor(model => model.Qty)
+            @Html.EditorFor(model => model.Quantity, "Number")
+            @Html.ValidationMessageFor(model => model.Quantity)
         </div>
 		</div>
 
@@ -50,7 +50,7 @@
         </div>
 		</div>
 
-        @Html.HiddenFor(model => model.TimeStamp)
+        @Html.HiddenFor(model => model.DateCreated)
  
 		<div class="actions">
             <input type="submit" class="btn primary" value="Save" />

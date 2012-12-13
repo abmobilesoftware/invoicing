@@ -54,7 +54,7 @@ public class EntitiesContextInitializer : DropCreateDatabaseIfModelChanges<Invoi
         for (int m= 1; m <= DateTime.Now.Month; m++)
         {
             for (int i=0;i<5;i++){
-                Invoice invoice = new Invoice();
+                InvoiceVM invoice = new InvoiceVM();
                 invoice.InvoiceNumber = invoice_number;
                 invoice.Customer = customers[new Random(m).Next(0, customers.Count - 1)]; //random customer
                 invoice.AdvancePaymentTax = 15;
@@ -70,7 +70,7 @@ public class EntitiesContextInitializer : DropCreateDatabaseIfModelChanges<Invoi
                 int number_invoice_details = new Random().Next(4, 10);
                 for (int id = 0; id < number_invoice_details; id++)
                 {
-                    invoice.InvoiceDetails.Add(new InvoiceDetails()
+                    invoice.InvoiceDetails.Add(new InvoiceDetailsVM()
                     {
                         Article = dummy_services[new Random(id).Next(0, dummy_services.Length)],
                         Price = 70,

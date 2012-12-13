@@ -4,11 +4,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using SmsFeedback_EFModels;
 
-public class Invoice
+public class InvoiceVM
 {
-    public Invoice() {
-        InvoiceDetails = new List<InvoiceDetails>();
+    public InvoiceVM() {
+        InvoiceDetails = new List<InvoiceDetailsVM>();
+    }
+
+    public InvoiceVM(Invoice dbInvoice)
+    {
+       this.Name = dbInvoice.Name;
+       this.InvoiceID = dbInvoice.InvoiceId;
+       //TODO customerID
+       this.Name = dbInvoice.Name;
+       this.Notes = dbInvoice.Notes;
+       this.ProposalDetails = dbInvoice.ProposalDetails;
+       this.TimeStamp = dbInvoice.DateCreated;
+       this.DueDate = dbInvoice.DueDate;
+       this.AdvancePaymentTax = dbInvoice.AdvancePaymentTax;
+       this.Paid = dbInvoice.Paid;
+       this.InvoiceDetails = (from invd in dbInvoice.InvoiceDetails select new InvoiceDetailsVM(invd)).ToList();
     }
 
     public int InvoiceID { get; set; }
@@ -18,7 +34,7 @@ public class Invoice
 
     public bool IsProposal {
         get {
-            return (this.InvoiceNumber == null || this.InvoiceNumber == 0);
+            return this.InvoiceNumber == 0;
         }
     }
 
@@ -46,7 +62,7 @@ public class Invoice
 
     public bool Paid { get; set; }
 
-    public virtual ICollection<InvoiceDetails> InvoiceDetails { get; set; }
+    public virtual ICollection<InvoiceDetailsVM> InvoiceDetails { get; set; }
 
     #region Calculated fields
     public decimal VATAmount  {

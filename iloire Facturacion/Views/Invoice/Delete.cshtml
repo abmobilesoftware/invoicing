@@ -4,7 +4,7 @@
 
 	ASP.NET MVC3 ACME Invocing app (demo app for training purposes)
 *@
-@model Invoice
+@model SmsFeedback_EFModels.Invoice
 
 @{
     ViewBag.Title = "Delete";
@@ -24,7 +24,7 @@
 <fieldset>
   <p>
         <strong>Customer: </strong>
-		@Html.DisplayFor(model => model.Customer.Name)
+		@Html.DisplayFor(model => model.Company.Name)
   </p>
   <p>
         <strong>Notes: </strong>
@@ -32,7 +32,7 @@
   </p>
   <p>
         <strong>TimeStamp: </strong>
-		@Html.DisplayFor(model => model.TimeStamp)
+		@Html.DisplayFor(model => model.DateCreated)
   </p>
   <p>
         <strong>Paid: </strong>
