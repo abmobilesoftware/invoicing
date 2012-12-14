@@ -138,8 +138,7 @@ namespace iloire_Facturacion.Controllers
                 }
             }
             #endregion
-
-
+       
             int currentPageIndex = page.HasValue ? page.Value - 1 : 0;
             var invoices = db.Invoices.Include(i => i.InvoiceDetails).Include(i => i.Company);
             ViewBag.IsProposal = proposal;
@@ -195,6 +194,8 @@ namespace iloire_Facturacion.Controllers
             ViewBag.MyCompanyAddress = System.Configuration.ConfigurationManager.AppSettings["MyCompanyAddress"];
             ViewBag.MyCompanyPhone = System.Configuration.ConfigurationManager.AppSettings["MyCompanyPhone"];
             ViewBag.MyEmail = System.Configuration.ConfigurationManager.AppSettings["MyEmail"];
+            ViewBag.VatID = System.Configuration.ConfigurationManager.AppSettings["VatID"];
+            ViewBag.Bank = System.Configuration.ConfigurationManager.AppSettings["MyBank"];
             ViewBag.MyBankAccount = System.Configuration.ConfigurationManager.AppSettings["MyBankAccount"];
 
             Invoice invoice = db.Invoices.Find(id);
@@ -223,8 +224,9 @@ namespace iloire_Facturacion.Controllers
         {
             Invoice i = new Invoice();
             i.DateCreated = DateTime.Now;
-            //i.DueDate = DateTime.Now.AddDays(30); //30 days after today
-            i.DueDate = DateTime.Now.AddDays(14); //14 days after today
+           //DA 30 days term for paying bills
+            i.DueDate = DateTime.Now.AddDays(30); //30 days after today
+            //i.DueDate = DateTime.Now.AddDays(14); //14 days after today
             i.AdvancePaymentTax = Convert.ToDecimal(System.Configuration.ConfigurationManager.AppSettings["DefaultAdvancePaymentTax"]);
 
             if (!proposal == true)
@@ -326,6 +328,7 @@ namespace iloire_Facturacion.Controllers
         [ValidateInput(false)]
         public ActionResult Edit(Invoice invoice, bool? proposal = false, bool? reminder = false)
         {
+           System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
            ViewBag.CompanyName = new SelectList(db.Companies.OrderBy(c => c.Name), "Name", "Name", invoice.CompanyName);
             ViewBag.IsProposal = proposal;
             ViewBag.IsPrReminder = reminder;

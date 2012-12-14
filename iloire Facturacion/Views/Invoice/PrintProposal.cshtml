@@ -39,7 +39,13 @@
     </p>
 
     <p>
-    @ViewBag.MyEmail
+    @Resources.Print.VatID: @ViewBag.VatID
+    </p>
+    <p>
+    @Resources.Print.Bank: @ViewBag.Bank
+    </p>
+    <p>
+    @Resources.Print.BankAccount: @ViewBag.MyBankAccount
     </p>
 
     </blockquote>
@@ -59,7 +65,7 @@
             <p>
                 @Resources.Print.Invoice_CompanyNumber:
                 <strong>
-                    @Html.DisplayFor(model => model.Company.CompanyNumber)
+                    @Html.DisplayFor(model => model.Company.VATID)
                 </strong>
             </p>
              <p>
