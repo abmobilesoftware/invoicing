@@ -152,7 +152,7 @@ input.span14,textarea.span14,select.span14{display:inline-block;float:none;width
 input.span15,textarea.span15,select.span15{display:inline-block;float:none;width:870px;margin-left:0;}
 input.span16,textarea.span16,select.span16{display:inline-block;float:none;width:930px;margin-left:0;}
 input[disabled],select[disabled],textarea[disabled],input[readonly],select[readonly],textarea[readonly]{background-color:#f5f5f5;border-color:#ddd;cursor:not-allowed;}
-.actions{background:#f5f5f5;margin-top:18px;margin-bottom:18px;padding:17px 20px 18px 150px;border-top:1px solid #ddd;-webkit-border-radius:0 0 3px 3px;-moz-border-radius:0 0 3px 3px;border-radius:0 0 3px 3px;}.actions .secondary-action{float:right;}.actions .secondary-action a{line-height:30px;}.actions .secondary-action a:hover{text-decoration:underline;}
+.actions{line-height:3;background:#f5f5f5;margin-top:18px;margin-bottom:18px;padding:17px 20px 18px 150px;border-top:1px solid #ddd;-webkit-border-radius:0 0 3px 3px;-moz-border-radius:0 0 3px 3px;border-radius:0 0 3px 3px;}.actions .secondary-action{float:right;}.actions .secondary-action a{line-height:30px;}.actions .secondary-action a:hover{text-decoration:underline;}
 .help-inline,.help-block{font-size:11px;line-height:18px;color:#bfbfbf;}
 .help-inline{padding-left:5px;*position:relative;*top:-5px;}
 .help-block{display:block;max-width:600px;}
