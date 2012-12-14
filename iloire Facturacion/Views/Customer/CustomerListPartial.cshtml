@@ -25,7 +25,7 @@
                 City
             </th>
             <th>
-                Phone1
+                Landline
             </th>
             <th>
                 Email
@@ -39,7 +39,7 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CompanyNumber)
+                @Html.DisplayFor(modelItem => item.VATID)
             </td>
       
             <td>
@@ -54,7 +54,7 @@
             <td nowrap>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Name }, new { idCustomer = item.Name, @class = "btn primary editCustomer" }) 
                 @Html.ActionLink("Details", "Details", new { id=item.Name }, new { @class = "btn"}) 
-                @Html.ActionLink("Delete", "Delete", new { id=item.Name }, new { @class = "btn"})
+                @*@Html.ActionLink("Delete", "Delete", new { id=item.Name }, new { @class = "btn"})*@
             </td>
         </tr>
     }

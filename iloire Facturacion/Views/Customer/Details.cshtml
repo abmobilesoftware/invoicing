@@ -25,27 +25,29 @@
 
 <div class="span7">
 <fieldset>
- <legend>Customer details</legend>
+  <legend>Company details</legend>
 	<p>
         <strong>Name: </strong>
          @Html.DisplayFor(model => model.Name)
     </p>
 	<p>
-        <strong>CompanyNumber: </strong>
-         @Html.DisplayFor(model => model.CompanyNumber)
-    </p>
-   
-    <hr />
-     <p>
-        <strong>Email: </strong>
-         @Html.DisplayFor(model => model.Email)
+        <strong>Description: </strong>
+         @Html.DisplayFor(model => model.Description)
     </p>
 	<p>
         <strong>Address: </strong>
          @Html.DisplayFor(model => model.Address)
     </p>
 	<p>
-        <strong>Zip Code: </strong>
+        <strong>NrOfTrainingHoursDelivered: </strong>
+         @Html.DisplayFor(model => model.NrOfTrainingHoursDelivered)
+    </p>
+	<p>
+        <strong>RegistrationNumber: </strong>
+         @Html.DisplayFor(model => model.RegistrationNumber)
+    </p>
+	<p>
+        <strong>PostalCode: </strong>
          @Html.DisplayFor(model => model.PostalCode)
     </p>
 	<p>
@@ -53,14 +55,29 @@
          @Html.DisplayFor(model => model.City)
     </p>
 	<p>
-        <strong>Phone1: </strong>
+        <strong>ContactPerson: </strong>
+         @Html.DisplayFor(model => model.ContactPerson)
+    </p>
+	<p>
+        <strong>Landline: </strong>
          @Html.DisplayFor(model => model.Landline)
     </p>
 	<p>
-        <strong>Phone2: </strong>
+        <strong>Mobile: </strong>
          @Html.DisplayFor(model => model.Mobile)
-    </p>	
-	
+    </p>
+	<p>
+        <strong>Email: </strong>
+         @Html.DisplayFor(model => model.Email)
+    </p>
+	<p>
+        <strong>Notes: </strong>
+         @Html.DisplayFor(model => model.Notes)
+    </p>
+	<p>
+        <strong>VATID: </strong>
+         @Html.DisplayFor(model => model.VATID)
+    </p>
 </fieldset>
 <p>
     @Html.ActionLink("Back to List", "Index", null, new { @class = "btn primary"})
