@@ -158,14 +158,9 @@
     <Compile Include="Models\POCO\ModelView\QuarterSummary.cs" />
     <Compile Include="Models\POCO\ModelView\YearSummary.cs" />
     <Compile Include="Models\POCO\ModelView\Summary.cs" />
-    <Compile Include="Models\POCO\Provider.cs" />
-    <Compile Include="Models\POCO\Purchase.cs" />
-    <Compile Include="Models\POCO\PurchaseType.cs" />
-    <Compile Include="Models\POCO\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="bin\itextsharp.dll" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.print.css" />
     <Content Include="Content\chosen.css" />
@@ -244,6 +239,7 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="Properties\PublishProfiles\invoicing.txtfeedback.net.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -254,6 +250,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="App_Error\" />
+    <Folder Include="bin\" />
     <Folder Include="Models\Security\" />
   </ItemGroup>
   <ItemGroup>
