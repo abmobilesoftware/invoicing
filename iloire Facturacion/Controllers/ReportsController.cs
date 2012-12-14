@@ -26,20 +26,20 @@ namespace iloire_Facturacion.Controllers
                           where i.DateCreated >= fromDate && i.DateCreated <= toDate
                             select i).ToList().Where(i=>!i.IsProposal).ToList();
 
-            s.Purchases = (from p in db.Purchases
-                             where p.TimeStamp >= fromDate && p.TimeStamp <= toDate
-                             select p).ToList();
+            //s.Purchases = (from p in db.Purchases
+            //                 where p.TimeStamp >= fromDate && p.TimeStamp <= toDate
+            //                 select p).ToList();
 
 
-            s.NetExpense = s.Purchases.Sum(i => i.SubTotal);
-            s.GrossExpense = s.Purchases.Sum(i => i.TotalWithVAT);
+            //s.NetExpense = s.Purchases.Sum(i => i.SubTotal);
+            //s.GrossExpense = s.Purchases.Sum(i => i.TotalWithVAT);
             
             s.NetIncome = s.Invoices.Sum(i => i.NetTotal);
             s.GrossIncome = s.Invoices.Sum(i=>i.TotalWithVAT);
 
             s.VATReceived = s.Invoices.Sum(i => i.VATAmount);
-            s.VATPaid = s.Purchases.Sum(i => i.VAT);
-            s.VATBalance = s.Invoices.Sum(i => i.VATAmount) - s.Purchases.Sum(p => p.VATAmount);
+            //s.VATPaid = s.Purchases.Sum(i => i.VAT);
+            //s.VATBalance = s.Invoices.Sum(i => i.VATAmount) - s.Purchases.Sum(p => p.VATAmount);
 
             s.AmountPaid = s.Invoices.Where(i => i.Paid).Sum(i => i.TotalToPay);
 
@@ -70,8 +70,8 @@ namespace iloire_Facturacion.Controllers
                 end = TaxDateHelper.GetEndDate(quarter.Value, year.Value);
             }
 
-            ViewBag.PurchaseTypes = (from p in db.PurchaseTypes
-                               select p).ToList();
+            //ViewBag.PurchaseTypes = (from p in db.PurchaseTypes
+            //                   select p).ToList();
 
             QuarterSummary quarter_Summary = new QuarterSummary()
             {
