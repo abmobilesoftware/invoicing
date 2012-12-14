@@ -13,6 +13,8 @@ using System.Web;
 using System.Web.Mvc;
 using MvcPaging;
 using SmsFeedback_EFModels;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
 
 namespace iloire_Facturacion.Controllers
 {
@@ -83,8 +85,24 @@ namespace iloire_Facturacion.Controllers
         {
             if (ModelState.IsValid)
             {
+               //DA we need a valid subscription type
+               var specialSubscription = db.Subscriptions.Find("Special");               
+               customer.Subscription = specialSubscription;
                db.Companies.Add(customer);
-                db.SaveChanges();
+               try
+               {
+                  db.SaveChanges();
+               }
+               catch (DbEntityValidationException dbEx)
+               {
+                  foreach (var validationErrors in dbEx.EntityValidationErrors)
+                  {
+                     foreach (var validationError in validationErrors.ValidationErrors)
+                     {
+                        Trace.TraceInformation("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
+                     }
+                  }
+               }
                 //return list of customers as it is ajax request
                 return PartialView("CustomerListPartial", db.Companies.OrderBy(c => c.Name).ToPagedList(0, defaultPageSize));
                 //return RedirectToAction("Index");  
