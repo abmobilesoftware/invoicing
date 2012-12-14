@@ -23,6 +23,7 @@ namespace iloire_Facturacion.Controllers
         /*CUSTOM*/
         public PartialViewResult IndexByInvoice(int id)
         {
+           System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
             ViewBag.InvoiceID = id;
             var invoice = db.Invoices.Where(i => i.InvoiceId == id).FirstOrDefault();
             ViewBag.Invoice = invoice;
