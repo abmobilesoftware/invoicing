@@ -15,110 +15,122 @@
             </text>
         }
 
-        <div class="clearfix">
-            <div class="span4">
-                @Html.LabelFor(model => model.Name)
+      <div class="clearfix">
+            @Html.LabelFor(model => model.Name)
         
-                <div class="input">
-                    @Html.TextBoxFor(model => model.Name, new { @class="span3" })
-                    @Html.ValidationMessageFor(model => model.Name)
-                </div>
-		    </div>
-
-            <div class="span4">
-                @Html.LabelFor(model => model.CompanyNumber)
-        
-                <div class="input">
-                    @Html.TextBoxFor(model => model.CompanyNumber, new { @class = "span3" })
-                    @Html.ValidationMessageFor(model => model.CompanyNumber)
-                </div>
-		    </div>
+        <div class="input">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
         </div>
-
-        <div class="clearfix">
-            <div class="span4">
-                @Html.LabelFor(model => model.Address)
-        
-                <div class="input">
-                    @Html.TextAreaFor(model => model.Address, new { @class="span3"})
-                    @Html.ValidationMessageFor(model => model.Address)
-                </div>
-		    </div>
-
-            <div class="span4">
-                @Html.LabelFor(model => model.PostalCode)
-        
-                <div class="input">
-                    @Html.TextBoxFor(model => model.PostalCode, new { @class="span3"})
-                    @Html.ValidationMessageFor(model => model.PostalCode)
-                </div>
-		    </div>
-
-             <div class="span4">
-                @Html.LabelFor(model => model.City)
-        
-                <div class="input">
-                    @Html.TextBoxFor(model => model.City, new { @class = "span3" })
-                    @Html.ValidationMessageFor(model => model.City)
-                </div>
-            </div>
-        </div>
-        
-     
-         <div class="clearfix">
-             <div class="span4">
-                @Html.LabelFor(model => model.ContactPerson)
-        
-                <div class="input">
-                    @Html.TextBoxFor(model => model.ContactPerson, new { @class = "span3" })
-                    @Html.ValidationMessageFor(model => model.ContactPerson)
-                </div>
-            </div>
-
-              <div class="span4">
-                @Html.LabelFor(model => model.Email)
-        
-                <div class="input">
-                     @Html.TextBoxFor(model => model.Email, new { @class = "span3" })
-                    @Html.ValidationMessageFor(model => model.Email)
-                </div>
-		    </div>
 		</div>
 
         <div class="clearfix">
-            <div class="span4">
-                @Html.LabelFor(model => model.Landline)
+            @Html.LabelFor(model => model.Description)
         
-                <div class="input">
-                    @Html.TextBoxFor(model => model.Landline, new { @class = "span3" })
-                    @Html.ValidationMessageFor(model => model.Landline)
-                </div>
-            </div>
-		
-
-            <div class="span4">
-                @Html.LabelFor(model => model.Mobile)
-        
-                <div class="input">
-                    @Html.TextBoxFor(model => model.Mobile, new { @class = "span3" })
-                    @Html.ValidationMessageFor(model => model.Mobile)
-                </div>
-		    </div>
-           
+        <div class="input">
+            @Html.EditorFor(model => model.Description)
+            @Html.ValidationMessageFor(model => model.Description)
         </div>
+		</div>
 
-     
-        
         <div class="clearfix">
-            <div class="span6">
-                @Html.LabelFor(model => model.Notes)
+            @Html.LabelFor(model => model.Address)
         
-                <div class="input">
-                    @Html.TextAreaFor(model => model.Notes)
-                    @Html.ValidationMessageFor(model => model.Notes)
-                </div>
-		    </div>
+        <div class="input">
+            @Html.EditorFor(model => model.Address)
+            @Html.ValidationMessageFor(model => model.Address)
         </div>
+		</div>
+
+        <div class="clearfix">
+            @Html.LabelFor(model => model.NrOfTrainingHoursDelivered)
+        
+        <div class="input">
+            @Html.EditorFor(model => model.NrOfTrainingHoursDelivered)
+            @Html.ValidationMessageFor(model => model.NrOfTrainingHoursDelivered)
+        </div>
+		</div>
+
+        <div class="clearfix">
+            @Html.LabelFor(model => model.RegistrationNumber)
+        
+        <div class="input">
+            @Html.EditorFor(model => model.RegistrationNumber)
+            @Html.ValidationMessageFor(model => model.RegistrationNumber)
+        </div>
+		</div>
+
+        <div class="clearfix">
+            @Html.LabelFor(model => model.PostalCode)
+        
+        <div class="input">
+            @Html.EditorFor(model => model.PostalCode)
+            @Html.ValidationMessageFor(model => model.PostalCode)
+        </div>
+		</div>
+
+        <div class="clearfix">
+            @Html.LabelFor(model => model.City)
+        
+        <div class="input">
+            @Html.EditorFor(model => model.City)
+            @Html.ValidationMessageFor(model => model.City)
+        </div>
+		</div>
+
+        <div class="clearfix">
+            @Html.LabelFor(model => model.ContactPerson)
+        
+        <div class="input">
+            @Html.EditorFor(model => model.ContactPerson)
+            @Html.ValidationMessageFor(model => model.ContactPerson)
+        </div>
+		</div>
+
+        <div class="clearfix">
+            @Html.LabelFor(model => model.Landline)
+        
+        <div class="input">
+            @Html.EditorFor(model => model.Landline)
+            @Html.ValidationMessageFor(model => model.Landline)
+        </div>
+		</div>
+
+        <div class="clearfix">
+            @Html.LabelFor(model => model.Mobile)
+        
+        <div class="input">
+            @Html.EditorFor(model => model.Mobile)
+            @Html.ValidationMessageFor(model => model.Mobile)
+        </div>
+		</div>
+
+        <div class="clearfix">
+            @Html.LabelFor(model => model.Email)
+        
+        <div class="input">
+            @Html.EditorFor(model => model.Email)
+            @Html.ValidationMessageFor(model => model.Email)
+        </div>
+		</div>
+
+        <div class="clearfix">
+            @Html.LabelFor(model => model.Notes)
+        
+        <div class="input">
+            @Html.EditorFor(model => model.Notes)
+            @Html.ValidationMessageFor(model => model.Notes)
+        </div>
+		</div>
+
+        <div class="clearfix">
+            @Html.LabelFor(model => model.VATID)
+        
+        <div class="input">
+            @Html.EditorFor(model => model.VATID)
+            @Html.ValidationMessageFor(model => model.VATID)
+        </div>
+		</div>
 
 		<div class="actions">
             <input type="submit" class="btn primary" value="Save" />
