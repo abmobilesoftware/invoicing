@@ -61,6 +61,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bank.
+        /// </summary>
+        internal static string Bank {
+            get {
+                return ResourceManager.GetString("Bank", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bank account.
+        /// </summary>
+        internal static string BankAccount {
+            get {
+                return ResourceManager.GetString("BankAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Advance Payment Tax.
         /// </summary>
         internal static string Invoice_AdvancePaymentTax {
@@ -255,6 +273,15 @@ namespace Resources {
         internal static string Quote {
             get {
                 return ResourceManager.GetString("Quote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to VATID.
+        /// </summary>
+        internal static string VatID {
+            get {
+                return ResourceManager.GetString("VatID", resourceCulture);
             }
         }
         

@@ -186,4 +186,13 @@
   <data name="Invoice_VATNumber" xml:space="preserve">
     <value>VAT Number</value>
   </data>
+  <data name="Bank" xml:space="preserve">
+    <value>Bank</value>
+  </data>
+  <data name="BankAccount" xml:space="preserve">
+    <value>Bank account</value>
+  </data>
+  <data name="VatID" xml:space="preserve">
+    <value>VATID</value>
+  </data>
 </root>
