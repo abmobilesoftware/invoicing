@@ -91,7 +91,7 @@
 				</td>
 			</tr>
 			
-            @{
+            @*@{
                 var purchaseTypes = ViewBag.PurchaseTypes as List<PurchaseType>;
             }
                 
@@ -121,8 +121,8 @@
                         </strong>	                        
 					</td>
 				</tr>
-                }
-			
+                }*@
+@*			
 			<tr>
 				<td><strong>Total Expenses</strong></td>		
                 @{
@@ -160,7 +160,7 @@
 				<td><strong>@String.Format("{0:C}", vat_purchasedM3)</strong></td>
 				<td><strong>@String.Format("{0:C}", vat_purchasedM3)</strong></td>
 				<td class=total><strong>@String.Format("{0:C}", vat_purchasedM1 + vat_purchasedM2 + vat_purchasedM3)</strong></td>
-			</tr>
+			</tr>*@
 
             <tr>
 				<td colspan="5">
