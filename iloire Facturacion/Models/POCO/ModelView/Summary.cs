@@ -12,8 +12,8 @@ public class Summary
     public DateTime To { get; set; }
 
     public List<Invoice> Invoices { get; set; }
-    public List<Purchase> Purchases { get; set; }
-    public List<PurchaseType> PurchaseTypes { get; set; }
+    //public List<Purchase> Purchases { get; set; }
+    //public List<PurchaseType> PurchaseTypes { get; set; }
 
     public decimal AmountPaid { get; set; }
     public decimal NetIncome { get; set; }
