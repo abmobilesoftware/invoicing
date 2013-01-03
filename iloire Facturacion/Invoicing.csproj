@@ -137,6 +137,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Print.es.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_GlobalResources\Print.ro.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Print.ro.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -159,6 +165,8 @@
     <Compile Include="Models\POCO\ModelView\YearSummary.cs" />
     <Compile Include="Models\POCO\ModelView\Summary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\SwitchLanguageHelper.cs" />
+    <Compile Include="Utilities\ViewExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.min.css" />
@@ -166,7 +174,11 @@
     <Content Include="Content\chosen.css" />
     <Content Include="Content\images\06-web-2_225.png" />
     <Content Include="Content\images\chosen-sprite.png" />
+    <Content Include="Content\images\De_flag_16.png" />
     <Content Include="Content\images\logo.png" />
+    <Content Include="Content\images\Ro_flag_16.png" />
+    <Content Include="Content\images\Spain_flag_16.png" />
+    <Content Include="Content\images\Uk_flag_16.png" />
     <Content Include="Content\jquery.cleditor.css" />
     <Content Include="Content\Site.print.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -351,6 +363,12 @@
       <Project>{f2dfc840-77cc-44f6-93d8-559639ad2580}</Project>
       <Name>SmsFeedback_EFModels</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\Print.ro.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Print.ro.designer.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

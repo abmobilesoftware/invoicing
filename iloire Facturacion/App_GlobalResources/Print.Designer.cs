@@ -79,6 +79,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nr. ord. registru com..
+        /// </summary>
+        internal static string CompanyJ {
+            get {
+                return ResourceManager.GetString("CompanyJ", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Advance Payment Tax.
         /// </summary>
         internal static string Invoice_AdvancePaymentTax {
@@ -237,6 +246,15 @@ namespace Resources {
         internal static string Invoice_VATNumber {
             get {
                 return ResourceManager.GetString("Invoice_VATNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Office.
+        /// </summary>
+        internal static string Office {
+            get {
+                return ResourceManager.GetString("Office", resourceCulture);
             }
         }
         

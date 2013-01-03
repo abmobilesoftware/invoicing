@@ -19,7 +19,7 @@ using System.Diagnostics;
 namespace iloire_Facturacion.Controllers
 {
    [Authorize]
-    public class CustomerController : Controller
+   public class CustomerController : BaseController
     {
         private int defaultPageSize = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["DefaultPaginationSize"]);
         private InvoiceDB db = new InvoiceDB();
@@ -57,7 +57,7 @@ namespace iloire_Facturacion.Controllers
         public ViewResult Index(int? page)
         {
             int currentPageIndex = page.HasValue ? page.Value - 1 : 0;
-            return View(db.Companies.OrderBy(c => c.Name).ToPagedList(currentPageIndex, defaultPageSize));
+            return View(db.Companies.Include(i => i.Contact).Include(i => i.SubscriptionDetail).OrderBy(c => c.Name).ToPagedList(currentPageIndex, defaultPageSize));
         }
 
         //
@@ -83,32 +83,38 @@ namespace iloire_Facturacion.Controllers
         [HttpPost]
         public ActionResult Create(Company customer)
         {
-            if (ModelState.IsValid)
-            {
-               //DA we need a valid subscription type
-               var specialSubscription = db.Subscriptions.Find("Special");               
-               customer.Subscription = specialSubscription;
-               db.Companies.Add(customer);
-               try
-               {
-                  db.SaveChanges();
-               }
-               catch (DbEntityValidationException dbEx)
-               {
-                  foreach (var validationErrors in dbEx.EntityValidationErrors)
-                  {
-                     foreach (var validationError in validationErrors.ValidationErrors)
-                     {
-                        Trace.TraceInformation("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
-                     }
-                  }
-               }
-                //return list of customers as it is ajax request
-                return PartialView("CustomerListPartial", db.Companies.OrderBy(c => c.Name).ToPagedList(0, defaultPageSize));
-                //return RedirectToAction("Index");  
-            }
-            this.Response.StatusCode = 400;
-            return PartialView(customer);
+           if (ModelState.IsValid)
+           {
+              //DA - billing day should be given
+              //DA we need a valid subscription type              
+              SubscriptionDetail lsDetails = new SubscriptionDetail() {BillingDay=1, DefaultCurrency ="EUR",RemainingAmount=10,RemainingSMS=200,SpendingLimit=10,SubscriptionSMS=200,WarningLimit=1 };              
+              customer.SubscriptionDetail = lsDetails;
+              Contact lContact = db.Contacts.Find(1);
+              lsDetails.PrimaryContact = lContact;
+              lsDetails.SecondaryContact = lContact;
+              customer.Contact = lContact;
+             
+              db.Companies.Add(customer);
+              try
+              {
+                 db.SaveChanges();
+              }
+              catch (DbEntityValidationException dbEx)
+              {
+                 foreach (var validationErrors in dbEx.EntityValidationErrors)
+                 {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                       Trace.TraceInformation("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
+                    }
+                 }
+              }
+              //return list of customers as it is ajax request
+              return PartialView("CustomerListPartial", db.Companies.OrderBy(c => c.Name).ToPagedList(0, defaultPageSize));
+              //return RedirectToAction("Index");  
+           }
+           this.Response.StatusCode = 400;
+           return PartialView(customer);
         }
         
         //
@@ -117,7 +123,9 @@ namespace iloire_Facturacion.Controllers
         public ActionResult Edit(string id)
         {
            Company customer = db.Companies.Find(id);
-            return PartialView(customer);
+           db.Entry(customer).Reference(u => u.SubscriptionDetail).Load();
+           db.Entry(customer).Reference(u => u.Contact).Load();
+           return PartialView(customer);
         }
 
         //
@@ -132,7 +140,7 @@ namespace iloire_Facturacion.Controllers
                 db.SaveChanges();
                 //return RedirectToAction("Index");
                 //return list of customers as it is ajax request
-                return PartialView("CustomerListPartial", db.Companies.OrderBy(c => c.Name).ToPagedList(0, defaultPageSize));
+                return PartialView("CustomerListPartial", db.Companies.Include(i => i.Contact).Include(i => i.SubscriptionDetail).OrderBy(c => c.Name).ToPagedList(0, defaultPageSize));
             }
             this.Response.StatusCode = 400;
             return PartialView(customer);

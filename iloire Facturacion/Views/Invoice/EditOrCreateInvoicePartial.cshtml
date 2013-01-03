@@ -57,7 +57,7 @@
             @Html.LabelFor(model => model.CompanyName, "Customer")
         
             <div class="input chzn-select">
-                @Html.DropDownList("CompanyName", String.Empty)
+                @Html.DropDownList("CompanyName", "Select customer")
                 @Html.ValidationMessageFor(model => model.CompanyName)
             </div>
 		</div>
@@ -109,7 +109,15 @@
             </div>
 		</div>
 
-        <div class="clearfix">
+     <div class="clearfix">
+            @Html.LabelFor(model => model.Currency)
+        
+            <div class="input">
+                @Html.DropDownList("Currency",Model.Currencies, "Select currency")
+                @Html.ValidationMessageFor(model => model.Currency)
+            </div>
+		</div>
+      <div class="clearfix">
             @Html.LabelFor(model => model.Paid)
         
             <div class="input">

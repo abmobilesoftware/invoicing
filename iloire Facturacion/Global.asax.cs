@@ -22,6 +22,13 @@ namespace iloire_Facturacion
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+             "Localization", // Route name
+             "{lang}/{controller}/{action}/{id}", // URL with parameters
+             new { controller = "Home", action = "Index", id = UrlParameter.Optional},// Parameter defaults
+             new { lang = @"\w{2,3}(-\w{4})?(-\w{2,3})?" } //match the language and pass it as a parameter
+            );
+
+            routes.MapRoute(
             "Invoice", // Nombre de ruta
             "Invoice/{action}/{id}", // URL con parámetros
             new { controller = "Invoice", action = "Index", id = UrlParameter.Optional, proposal = false, reminder = false } // Valores predeterminados de parámetro

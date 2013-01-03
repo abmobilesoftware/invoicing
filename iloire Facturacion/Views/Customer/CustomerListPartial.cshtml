@@ -25,7 +25,7 @@
                 City
             </th>
             <th>
-                Landline
+                Mobile
             </th>
             <th>
                 Email
@@ -44,12 +44,12 @@
       
             <td>
                 @Html.DisplayFor(modelItem => item.City)
+            </td>            
+            <td>
+                @Html.DisplayFor(modelItem => item.Contact.Mobile)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Landline)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
+                @Html.DisplayFor(modelItem => item.Contact.Email)
             </td>
             <td nowrap>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Name }, new { idCustomer = item.Name, @class = "btn primary editCustomer" }) 

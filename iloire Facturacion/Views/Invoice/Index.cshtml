@@ -94,16 +94,16 @@
             @Html.DisplayFor(modelItem => item.DateCreated)
         </td>
         <td nowrap>
-            @String.Format("{0:C}", item.InvoiceDetails.Sum(i => i.Total))
+            @String.Format("{0:0.00} {1}", item.InvoiceDetails.Sum(i => i.Total), item.Currency)
         </td>
         @* <td>
             @String.Format("{0:C}", item.InvoiceDetails.Sum(i => i.TotalPlusVAT))
         </td>*@
         <td>
-            @String.Format("{0:C}", item.AdvancePaymentTaxAmount)
+            @String.Format("{0:0.00} {1}", item.AdvancePaymentTaxAmount, item.Currency)
         </td>
         <td nowrap>
-            @String.Format("{0:C}", item.TotalToPay)
+            @String.Format("{0:0.00} {1}", item.TotalToPay, item.Currency)
             @if (!item.IsProposal)
             {
                 if (!item.Paid)
@@ -133,9 +133,9 @@
     <tr>
         <td colspan=4>        
         </td>
-        <td>@String.Format("{0:C}", ViewBag.NetTotal)</td>
-        <td>@String.Format("{0:C}", ViewBag.AdvancePaymentTaxAmountTotal)</td>
-        <td>@String.Format("{0:C}", ViewBag.TotalWithVAT)</td>         
+        <td>@String.Format("{0:0.00}", ViewBag.NetTotal )</td>
+        <td>@String.Format("{0:0.00}", ViewBag.AdvancePaymentTaxAmountTotal)</td>
+        <td>@String.Format("{0:0.00}", ViewBag.TotalWithVAT)</td>         
         <td></td>
     </tr>
 </tfoot>

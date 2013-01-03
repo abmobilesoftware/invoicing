@@ -37,11 +37,7 @@
 	<p>
         <strong>Address: </strong>
          @Html.DisplayFor(model => model.Address)
-    </p>
-	<p>
-        <strong>NrOfTrainingHoursDelivered: </strong>
-         @Html.DisplayFor(model => model.NrOfTrainingHoursDelivered)
-    </p>
+    </p>	
 	<p>
         <strong>RegistrationNumber: </strong>
          @Html.DisplayFor(model => model.RegistrationNumber)
@@ -53,22 +49,18 @@
 	<p>
         <strong>City: </strong>
          @Html.DisplayFor(model => model.City)
-    </p>
-	<p>
-        <strong>ContactPerson: </strong>
-         @Html.DisplayFor(model => model.ContactPerson)
-    </p>
+    </p>	
 	<p>
         <strong>Landline: </strong>
-         @Html.DisplayFor(model => model.Landline)
+         @Html.DisplayFor(model => model.Contact.Landline)
     </p>
 	<p>
         <strong>Mobile: </strong>
-         @Html.DisplayFor(model => model.Mobile)
+         @Html.DisplayFor(model => model.Contact.Mobile)
     </p>
 	<p>
         <strong>Email: </strong>
-         @Html.DisplayFor(model => model.Email)
+         @Html.DisplayFor(model => model.Contact.Email)
     </p>
 	<p>
         <strong>Notes: </strong>

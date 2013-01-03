@@ -1,4 +1,5 @@
 ﻿<!DOCTYPE html>
+@using iloire_Facturacion.Utilities
 <html>
 <head>
     <meta charset="utf-8" />
@@ -56,7 +57,14 @@
                      @{Html.RenderPartial("Menu");}
                      </text>
                  }
+                   <div id="logindisplay">            
+                  @Html.ImageLink(Url.Content("~/Content/images/Uk_flag_16.png"), "en-US", null, null);
+                  @Html.ImageLink(Url.Content("~/Content/images/De_flag_16.png"), "de-DE", null, null);
+                  @Html.ImageLink(Url.Content("~/Content/images/Spain_flag_16.png"), "es-ES", null, null);
+                  @Html.ImageLink(Url.Content("~/Content/images/Ro_flag_16.png"), "ro-RO", null, null);
+                  </div>
                 <p class="pull-right noprint">
+                  
                     @Html.Partial("_LogOnPartial")
                 </p>
             </div>

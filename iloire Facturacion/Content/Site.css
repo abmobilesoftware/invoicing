@@ -211,3 +211,32 @@ td.total
 .income{color:green}
 
 .noborder{border:0}
+
+#logindisplay {
+   font-size: 15px;
+   display: block;
+   text-align: right;
+   /*margin: 10px;*/
+   color: #183540;
+}
+
+   #logindisplay a:link {
+      color: #511df9;
+      text-decoration: underline;
+      opacity:  0.5;
+   }
+
+   #logindisplay a:visited {
+      color: #183540;
+      text-decoration: underline;      
+   }
+
+   #logindisplay a:hover {
+      color: #511df9;
+      text-decoration: none;
+   }
+
+.selectedLanguage {
+   border-bottom: 1px solid black;
+   opacity: 1 !important;
+}

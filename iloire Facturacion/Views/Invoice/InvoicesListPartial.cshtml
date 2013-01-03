@@ -43,7 +43,7 @@
             </a>
         </td>
          <td nowrap="nowrap" align="right"   style="align:text-right">
-            @String.Format("{0:C}", item.TotalToPay)
+            @String.Format("{0:0.00} {1}", item.TotalToPay, item.Currency)
         </td>
          <td>
             @Html.DisplayFor(modelItem => item.DateCreated)
@@ -68,7 +68,7 @@
   <tfoot>
         <tr>
             <td colspan=3><span class="label">TOTALS: </span></td>
-            <td nowrap="nowrap">@String.Format("{0:C}", Model.Sum(i => i.TotalToPay))</td>
+            <td nowrap="nowrap">@String.Format("{0:0.00}", Model.Sum(i => i.TotalToPay))</td>
             <td></td>
             <td></td>
         </tr>

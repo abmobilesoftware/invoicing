@@ -15,6 +15,18 @@
             </text>
         }
 
+        @if (Model != null)
+        {   <text>
+            @Html.HiddenFor(model => model.SubscriptionDetailsID)
+            </text>
+        }
+
+    @if (Model != null)
+        {   <text>
+            @Html.HiddenFor(model => model.Contact_Id)
+            </text>
+        }
+
       <div class="clearfix">
             @Html.LabelFor(model => model.Name)
         
@@ -41,15 +53,7 @@
             @Html.ValidationMessageFor(model => model.Address)
         </div>
 		</div>
-
-        <div class="clearfix">
-            @Html.LabelFor(model => model.NrOfTrainingHoursDelivered)
-        
-        <div class="input">
-            @Html.EditorFor(model => model.NrOfTrainingHoursDelivered)
-            @Html.ValidationMessageFor(model => model.NrOfTrainingHoursDelivered)
-        </div>
-		</div>
+    
 
         <div class="clearfix">
             @Html.LabelFor(model => model.RegistrationNumber)
@@ -79,38 +83,47 @@
 		</div>
 
         <div class="clearfix">
-            @Html.LabelFor(model => model.ContactPerson)
+            @Html.LabelFor(model => model.Contact.Name)
         
         <div class="input">
-            @Html.EditorFor(model => model.ContactPerson)
-            @Html.ValidationMessageFor(model => model.ContactPerson)
+            @Html.EditorFor(model => model.Contact.Name)
+            @Html.ValidationMessageFor(model => model.Contact.Name)
         </div>
 		</div>
 
         <div class="clearfix">
-            @Html.LabelFor(model => model.Landline)
+            @Html.LabelFor(model => model.Contact.Surname)
         
         <div class="input">
-            @Html.EditorFor(model => model.Landline)
-            @Html.ValidationMessageFor(model => model.Landline)
+            @Html.EditorFor(model => model.Contact.Surname)
+            @Html.ValidationMessageFor(model => model.Contact.Surname)
         </div>
 		</div>
 
         <div class="clearfix">
-            @Html.LabelFor(model => model.Mobile)
+            @Html.LabelFor(model => model.Contact.Landline)
         
         <div class="input">
-            @Html.EditorFor(model => model.Mobile)
-            @Html.ValidationMessageFor(model => model.Mobile)
+            @Html.EditorFor(model => model.Contact.Landline)
+            @Html.ValidationMessageFor(model => model.Contact.Landline)
         </div>
 		</div>
 
         <div class="clearfix">
-            @Html.LabelFor(model => model.Email)
+            @Html.LabelFor(model => model.Contact.Mobile)
         
         <div class="input">
-            @Html.EditorFor(model => model.Email)
-            @Html.ValidationMessageFor(model => model.Email)
+            @Html.EditorFor(model => model.Contact.Mobile)
+            @Html.ValidationMessageFor(model => model.Contact.Mobile)
+        </div>
+		</div>
+
+        <div class="clearfix">
+            @Html.LabelFor(model => model.Contact.Email)
+        
+        <div class="input">
+            @Html.EditorFor(model => model.Contact.Email)
+            @Html.ValidationMessageFor(model => model.Contact.Email)
         </div>
 		</div>
 

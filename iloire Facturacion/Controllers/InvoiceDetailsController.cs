@@ -16,17 +16,19 @@ using System.Web.Mvc;
 namespace iloire_Facturacion.Controllers
 {
     [Authorize]
-    public class InvoiceDetailsController : Controller
+    public class InvoiceDetailsController : BaseController
     {
         private InvoiceDB db = new InvoiceDB();
 
         /*CUSTOM*/
         public PartialViewResult IndexByInvoice(int id)
         {
-           System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
-            ViewBag.InvoiceID = id;
+           //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
+           //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("ro-RO");
+            ViewBag.InvoiceID = id;           
             var invoice = db.Invoices.Where(i => i.InvoiceId == id).FirstOrDefault();
             ViewBag.Invoice = invoice;
+            ViewBag.Currency = invoice.Currency;
             ViewBag.IsProposal = invoice.IsProposal;
             var invoicedetails = db.InvoiceDetails.Include(i => i.Invoice).Where(i=>i.InvoiceInvoiceId==id);
             return PartialView("Index", invoicedetails.ToList());

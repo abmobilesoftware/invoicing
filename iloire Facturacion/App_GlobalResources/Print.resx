@@ -195,4 +195,10 @@
   <data name="VatID" xml:space="preserve">
     <value>VATID</value>
   </data>
+  <data name="CompanyJ" xml:space="preserve">
+    <value>Nr. ord. registru com.</value>
+  </data>
+  <data name="Office" xml:space="preserve">
+    <value>Office</value>
+  </data>
 </root>

@@ -15,7 +15,7 @@ using iloire_Facturacion.Models;
 
 namespace iloire_Facturacion.Controllers
 {
-    public class AccountController : Controller
+   public class AccountController : BaseController
     {
 
         //

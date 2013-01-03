@@ -15,11 +15,13 @@ using MvcPaging;
 using System.Globalization;
 using Rotativa;
 using SmsFeedback_EFModels;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
 
 namespace iloire_Facturacion.Controllers
 {
     [Authorize]
-    public class InvoiceController : Controller
+   public class InvoiceController : BaseController
     {
 
         private InvoiceDB db = new InvoiceDB();
@@ -140,7 +142,7 @@ namespace iloire_Facturacion.Controllers
             #endregion
        
             int currentPageIndex = page.HasValue ? page.Value - 1 : 0;
-            var invoices = db.Invoices.Include(i => i.InvoiceDetails).Include(i => i.Company);
+            var invoices = db.Invoices.Include(i => i.InvoiceDetails).Include(i => i.Company).Include(i=> i.Company.Contact);
             ViewBag.IsProposal = proposal;
             ViewBag.IsReminder = reminder;
             
@@ -185,14 +187,16 @@ namespace iloire_Facturacion.Controllers
             catch
             {
             }
-            System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
-
+            //System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
+            //System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo("ro-RO");
+            //System.Threading.Thread.CurrentThread.CurrentCulture = new CultureInfo("ro-RO");
             ViewBag.Print = true;
             ViewBag.MyCompany = System.Configuration.ConfigurationManager.AppSettings["MyCompanyName"];
             ViewBag.MyCompanyID = System.Configuration.ConfigurationManager.AppSettings["MyCompanyID"];
             ViewBag.MyVATID = System.Configuration.ConfigurationManager.AppSettings["MyVATID"];
             ViewBag.MyCompanyAddress = System.Configuration.ConfigurationManager.AppSettings["MyCompanyAddress"];
             ViewBag.MyCompanyPhone = System.Configuration.ConfigurationManager.AppSettings["MyCompanyPhone"];
+            ViewBag.MyCompanyJ  = System.Configuration.ConfigurationManager.AppSettings["MyCompanyJ"];
             ViewBag.MyEmail = System.Configuration.ConfigurationManager.AppSettings["MyEmail"];
             ViewBag.VatID = System.Configuration.ConfigurationManager.AppSettings["VatID"];
             ViewBag.Bank = System.Configuration.ConfigurationManager.AppSettings["MyBank"];
@@ -267,7 +271,20 @@ namespace iloire_Facturacion.Controllers
                     }
                 }
                 db.Invoices.Add(invoice);
-                db.SaveChanges();
+                try
+                {
+                   db.SaveChanges();
+                }
+                catch (DbEntityValidationException dbEx)
+                {
+                   foreach (var validationErrors in dbEx.EntityValidationErrors)
+                   {
+                      foreach (var validationError in validationErrors.ValidationErrors)
+                      {
+                         Trace.TraceInformation("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
+                      }
+                   }
+                }
                 return RedirectToAction("Edit", "Invoice", new { id = invoice.InvoiceId, proposal = proposal });  
             }
             return View(invoice);
@@ -328,7 +345,8 @@ namespace iloire_Facturacion.Controllers
         [ValidateInput(false)]
         public ActionResult Edit(Invoice invoice, bool? proposal = false, bool? reminder = false)
         {
-           System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
+           //System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
+           //System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo("ro-RO");
            ViewBag.CompanyName = new SelectList(db.Companies.OrderBy(c => c.Name), "Name", "Name", invoice.CompanyName);
             ViewBag.IsProposal = proposal;
             ViewBag.IsPrReminder = reminder;
@@ -373,12 +391,15 @@ namespace iloire_Facturacion.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id, bool? proposal = false, bool? reminder = false)
         {
-            ViewBag.IsProposal = proposal;
-            ViewBag.IsReminder = reminder;
-            Invoice invoice = db.Invoices.Find(id);
-            db.Invoices.Remove(invoice);
-            db.SaveChanges();
-            return RedirectToAction("Index", new { proposal = proposal });
+           ViewBag.IsProposal = proposal;
+           ViewBag.IsReminder = reminder;
+           Invoice invoice = db.Invoices.Find(id);
+           //List<InvoiceDetails> invdetails = invoice.InvoiceDetails.ToList();
+           //invdetails.ForEach(details => {              
+           //   invoice.InvoiceDetails.Remove(details);});           
+           db.Invoices.Remove(invoice);
+           db.SaveChanges();
+           return RedirectToAction("Index", new { proposal = proposal });
         }
 
         protected override void Dispose(bool disposing)

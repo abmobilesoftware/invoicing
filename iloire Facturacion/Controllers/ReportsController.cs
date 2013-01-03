@@ -11,7 +11,7 @@ using System.Web.Mvc;
 namespace iloire_Facturacion.Controllers
 {
     [Authorize]
-    public class ReportsController : Controller
+   public class ReportsController : BaseController
     {
         private InvoiceDB db = new InvoiceDB();
       
