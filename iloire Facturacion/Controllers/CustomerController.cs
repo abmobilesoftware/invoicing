@@ -82,38 +82,42 @@ namespace iloire_Facturacion.Controllers
 
         [HttpPost]
         public ActionResult Create(Company customer)
-        {
+        {           
            if (ModelState.IsValid)
            {
               //DA - billing day should be given
               //DA we need a valid subscription type              
-              SubscriptionDetail lsDetails = new SubscriptionDetail() {BillingDay=1, DefaultCurrency ="EUR",RemainingAmount=10,RemainingSMS=200,SpendingLimit=10,SubscriptionSMS=200,WarningLimit=1 };              
-              customer.SubscriptionDetail = lsDetails;
-              Contact lContact = db.Contacts.Find(1);
-              lsDetails.PrimaryContact = lContact;
-              lsDetails.SecondaryContact = lContact;
-              customer.Contact = lContact;
-             
-              db.Companies.Add(customer);
-              try
+              SubscriptionDetail lsDetails = new SubscriptionDetail() {
+                 BillingDay=customer.SubscriptionDetail.BillingDay,
+                 DefaultCurrency =customer.SubscriptionDetail.DefaultCurrency,
+                 RemainingAmount = customer.SubscriptionDetail.SpendingLimit,
+                 RemainingSMS=customer.SubscriptionDetail.SubscriptionSMS,
+                 SpendingLimit=customer.SubscriptionDetail.SpendingLimit,
+                 SubscriptionSMS=customer.SubscriptionDetail.SubscriptionSMS,
+                 WarningLimit=customer.SubscriptionDetail.WarningLimit };              
+              
+              ////Contact lContact = db.Contacts.Find(1);
+              Contact primary = new Contact(){
+                 Name= customer.SubscriptionDetail.PrimaryContact.Name,
+                 Surname = customer.SubscriptionDetail.PrimaryContact.Surname,
+                 Email = customer.SubscriptionDetail.PrimaryContact.Email
+              };
+              lsDetails.PrimaryContact = primary;
+              Contact secondary = new Contact()
               {
-                 db.SaveChanges();
-              }
-              catch (DbEntityValidationException dbEx)
-              {
-                 foreach (var validationErrors in dbEx.EntityValidationErrors)
-                 {
-                    foreach (var validationError in validationErrors.ValidationErrors)
-                    {
-                       Trace.TraceInformation("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
-                    }
-                 }
-              }
+                 Name = customer.SubscriptionDetail.SecondaryContact.Name,
+                 Surname = customer.SubscriptionDetail.SecondaryContact.Surname,
+                 Email = customer.SubscriptionDetail.SecondaryContact.Email
+              };
+              lsDetails.SecondaryContact = secondary;                            
+             customer.SubscriptionDetail = lsDetails;
+              db.Companies.Add(customer);             
+             db.SaveChanges();             
               //return list of customers as it is ajax request
               return PartialView("CustomerListPartial", db.Companies.OrderBy(c => c.Name).ToPagedList(0, defaultPageSize));
               //return RedirectToAction("Index");  
            }
-           this.Response.StatusCode = 400;
+           this.Response.StatusCode = 400;           
            return PartialView(customer);
         }
         
@@ -124,19 +128,22 @@ namespace iloire_Facturacion.Controllers
         {
            Company customer = db.Companies.Find(id);
            db.Entry(customer).Reference(u => u.SubscriptionDetail).Load();
-           db.Entry(customer).Reference(u => u.Contact).Load();
+           db.Entry(customer).Reference(u => u.Contact).Load();           
            return PartialView(customer);
         }
 
         //
         // POST: /Customer/Edit/5
-
         [HttpPost]
         public ActionResult Edit(Company customer)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(customer).State = EntityState.Modified;
+                db.Entry(customer.Contact).State = EntityState.Modified;
+                db.Entry(customer.SubscriptionDetail).State = EntityState.Modified;
+                db.Entry(customer.SubscriptionDetail.PrimaryContact).State = EntityState.Modified;
+                db.Entry(customer.SubscriptionDetail.SecondaryContact).State = EntityState.Modified;
                 db.SaveChanges();
                 //return RedirectToAction("Index");
                 //return list of customers as it is ajax request
