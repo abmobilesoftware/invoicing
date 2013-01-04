@@ -54,7 +54,7 @@
             <td nowrap>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Name }, new { idCustomer = item.Name, @class = "btn primary editCustomer" }) 
                 @Html.ActionLink("Details", "Details", new { id=item.Name }, new { @class = "btn"}) 
-                @*@Html.ActionLink("Delete", "Delete", new { id=item.Name }, new { @class = "btn"})*@
+                @Html.ActionLink("Delete", "Delete", new { id=item.Name }, new { @class = "btn"})
             </td>
         </tr>
     }

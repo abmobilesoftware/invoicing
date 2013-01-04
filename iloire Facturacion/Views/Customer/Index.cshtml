@@ -9,12 +9,12 @@
 @model IPagedList<SmsFeedback_EFModels.Company>
 
 @{
-    ViewBag.Title = "Customers";
+    ViewBag.Title = "Companies";
 }
 
 <div id="ajaxResponse">
 
-<h1>List <small>of Customers</small></h1>
+<h1>List <small>of Companies</small></h1>
 
 <script>
 
@@ -89,17 +89,17 @@
     });
 </script>
 <p>
-    @Html.ActionLink("[+] Create new Customer", "Create", null, new { @class = "btn newCustomer primary" })
+    @Html.ActionLink("[+] Create new Company", "Create", null, new { @class = "btn newCustomer primary" })
 </p>
 
 @{Html.RenderPartial("SearchBoxCompany", "Customer");}
 
 
 <div id="msgErrorNewCustomer"></div>
-     <div id="my-modal" class="modal hide fade" style="width:850px;margin:-40% 0 0 -30%;">
+     <div id="my-modal" class="modal hide fade" style="width:1250px;margin:-45% 0 0 -30%;">
             <div class="modal-header">
                 <a href="#" class="close">&times;</a>
-                <h3>Customer edition</h3>
+                <h3>Company edition</h3>
             </div>
             <div class="modal-body">
                 <div id="msgError"></div>

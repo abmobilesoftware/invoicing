@@ -21,12 +21,49 @@
             </text>
         }
 
+    @if (Model != null && Model.SubscriptionDetail != null)
+        {   <text>
+            @Html.HiddenFor(model => model.SubscriptionDetail.Id)
+            </text>
+        }
+
     @if (Model != null)
         {   <text>
             @Html.HiddenFor(model => model.Contact_Id)
             </text>
         }
 
+    @if (Model != null && Model.Contact != null)
+        {   <text>
+            @Html.HiddenFor(model => model.Contact.Id)
+            </text>
+        }
+    @if (Model != null && Model.SubscriptionDetail != null)
+        {   <text>
+            @Html.HiddenFor(model => model.SubscriptionDetail.PrimaryContact_Id)
+            </text>
+        }
+     @if (Model != null && Model.SubscriptionDetail != null && Model.SubscriptionDetail.PrimaryContact != null)
+        {   <text>
+            @Html.HiddenFor(model => model.SubscriptionDetail.PrimaryContact.Id)
+            </text>
+        }
+
+    @if (Model != null && Model.SubscriptionDetail != null)
+        {   <text>
+            @Html.HiddenFor(model => model.SubscriptionDetail.SecondaryContact_Id)
+            </text>
+        }
+
+    @if (Model != null && Model.SubscriptionDetail != null && Model.SubscriptionDetail.SecondaryContact != null)
+        {   <text>
+            @Html.HiddenFor(model => model.SubscriptionDetail.SecondaryContact.Id)
+            </text>
+        }
+ <table>
+ <tr>
+    <td width="80%">
+       <p>Company Info</p>
       <div class="clearfix">
             @Html.LabelFor(model => model.Name)
         
@@ -81,7 +118,40 @@
             @Html.ValidationMessageFor(model => model.City)
         </div>
 		</div>
+      <div class="clearfix">
+            @Html.LabelFor(model => model.Notes)
+        
+        <div class="input">
+            @Html.EditorFor(model => model.Notes)
+            @Html.ValidationMessageFor(model => model.Notes)
+        </div>
+		</div>
 
+      <div class="clearfix">
+            @Html.LabelFor(model => model.VATID)
+        
+        <div class="input">
+            @Html.EditorFor(model => model.VATID)
+            @Html.ValidationMessageFor(model => model.VATID)
+        </div>
+		</div>
+       <div class="clearfix">
+            @Html.LabelFor(model => model.Bank)
+        
+        <div class="input">
+            @Html.EditorFor(model => model.Bank)
+            @Html.ValidationMessageFor(model => model.Bank)
+        </div>
+		</div>
+       <div class="clearfix">
+            @Html.LabelFor(model => model.BankAccount)
+        
+        <div class="input">
+            @Html.EditorFor(model => model.BankAccount)
+            @Html.ValidationMessageFor(model => model.BankAccount)
+        </div>
+		</div>
+      <p>Company Contact</p>
         <div class="clearfix">
             @Html.LabelFor(model => model.Contact.Name)
         
@@ -97,15 +167,6 @@
         <div class="input">
             @Html.EditorFor(model => model.Contact.Surname)
             @Html.ValidationMessageFor(model => model.Contact.Surname)
-        </div>
-		</div>
-
-        <div class="clearfix">
-            @Html.LabelFor(model => model.Contact.Landline)
-        
-        <div class="input">
-            @Html.EditorFor(model => model.Contact.Landline)
-            @Html.ValidationMessageFor(model => model.Contact.Landline)
         </div>
 		</div>
 
@@ -126,25 +187,93 @@
             @Html.ValidationMessageFor(model => model.Contact.Email)
         </div>
 		</div>
-
+      </td>   
+    <td>
+       <p>Subscription Details</p>
+       <div class="clearfix">
+          @Html.LabelFor(model => model.SubscriptionDetail.BillingDay)
+         <div class="input">
+            @Html.EditorFor(model => model.SubscriptionDetail.BillingDay)
+            @Html.ValidationMessageFor(model => model.SubscriptionDetail.BillingDay)
+         </div>
+       </div>
         <div class="clearfix">
-            @Html.LabelFor(model => model.Notes)
-        
-        <div class="input">
-            @Html.EditorFor(model => model.Notes)
-            @Html.ValidationMessageFor(model => model.Notes)
+             @Html.LabelFor(model => model.SubscriptionDetail.SubscriptionSMS)
+          <div class="input">
+               @Html.EditorFor(model => model.SubscriptionDetail.SubscriptionSMS)
+               @Html.ValidationMessageFor(model => model.SubscriptionDetail.SubscriptionSMS)
+           </div>
         </div>
-		</div>
-
         <div class="clearfix">
-            @Html.LabelFor(model => model.VATID)
-        
-        <div class="input">
-            @Html.EditorFor(model => model.VATID)
-            @Html.ValidationMessageFor(model => model.VATID)
+          @Html.LabelFor(model => model.SubscriptionDetail.SpendingLimit)
+          <div class="input">
+               @Html.EditorFor(model => model.SubscriptionDetail.SpendingLimit)
+               @Html.ValidationMessageFor(model => model.SubscriptionDetail.SpendingLimit)
+           </div>
         </div>
-		</div>
+       <div class="clearfix">
+          @Html.LabelFor(model => model.SubscriptionDetail.WarningLimit)
+          <div class="input">
+               @Html.EditorFor(model => model.SubscriptionDetail.WarningLimit)
+               @Html.ValidationMessageFor(model => model.SubscriptionDetail.WarningLimit)
+           </div>
+        </div>
 
+       <div class="clearfix">
+               @Html.LabelFor(model => model.SubscriptionDetail.DefaultCurrency)       
+               <div class="input">
+                   @Html.DropDownList( "SubscriptionDetail.DefaultCurrency",SmsFeedback_EFModels.SubscriptionDetail.DefaultCurrencies, "Select currency")                
+               </div>
+		 </div>
+
+       <p>Primary Contact</p>
+        <div class="clearfix">
+          @Html.LabelFor(model => model.SubscriptionDetail.PrimaryContact.Name)
+          <div class="input">
+               @Html.EditorFor(model => model.SubscriptionDetail.PrimaryContact.Name)
+               @Html.ValidationMessageFor(model => model.SubscriptionDetail.PrimaryContact.Name)
+           </div>
+        </div>
+        <div class="clearfix">
+          @Html.LabelFor(model => model.SubscriptionDetail.PrimaryContact.Surname)
+          <div class="input">
+               @Html.EditorFor(model => model.SubscriptionDetail.PrimaryContact.Surname)
+               @Html.ValidationMessageFor(model => model.SubscriptionDetail.PrimaryContact.Surname)
+           </div>
+        </div>
+        <div class="clearfix">
+          @Html.LabelFor(model => model.SubscriptionDetail.PrimaryContact.Email)
+          <div class="input">
+               @Html.EditorFor(model => model.SubscriptionDetail.PrimaryContact.Email)
+               @Html.ValidationMessageFor(model => model.SubscriptionDetail.PrimaryContact.Email)
+           </div>
+        </div>
+        <p>Secondary Contact</p>
+        <div class="clearfix">
+          @Html.LabelFor(model => model.SubscriptionDetail.SecondaryContact.Name)
+          <div class="input">
+               @Html.EditorFor(model => model.SubscriptionDetail.SecondaryContact.Name)
+               @Html.ValidationMessageFor(model => model.SubscriptionDetail.SecondaryContact.Name)
+           </div>
+        </div>
+        <div class="clearfix">
+          @Html.LabelFor(model => model.SubscriptionDetail.SecondaryContact.Surname)
+          <div class="input">
+               @Html.EditorFor(model => model.SubscriptionDetail.SecondaryContact.Surname)
+               @Html.ValidationMessageFor(model => model.SubscriptionDetail.SecondaryContact.Surname)
+           </div>
+        </div>
+        <div class="clearfix">
+          @Html.LabelFor(model => model.SubscriptionDetail.SecondaryContact.Email)
+          <div class="input">
+               @Html.EditorFor(model => model.SubscriptionDetail.SecondaryContact.Email)
+               @Html.ValidationMessageFor(model => model.SubscriptionDetail.SecondaryContact.Email)
+           </div>
+        </div>
+    </td>
+   </tr>
+ </table>
+     
 		<div class="actions">
             <input type="submit" class="btn primary" value="Save" />
             <input type="button" class="btn closeModal" value="Close window" />
