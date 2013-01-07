@@ -48,7 +48,9 @@
     <p>
     @Resources.Print.BankAccount: @ViewBag.MyBankAccount
     </p>
-
+    <p>
+    @Resources.Print.Invoice_SwiftNumber: @ViewBag.Invoice_SwiftNumber
+    </p>
     </blockquote>
 </div>
 
@@ -170,9 +172,13 @@
 </table>
 
 <div class="invoiceFooter">
-    <p>
-    
-    </p>
+    <table>
+    <tr>
+       <td>
+           @Html.Raw(@Resources.Print.Invoice_Footer.Replace(Environment.NewLine, "<br/>"))
+       </td>
+    </tr>
+    </table>
     
 
 </div>

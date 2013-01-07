@@ -90,7 +90,9 @@ namespace iloire_Facturacion.Controllers
               SubscriptionDetail lsDetails = new SubscriptionDetail() {
                  BillingDay=customer.SubscriptionDetail.BillingDay,
                  DefaultCurrency =customer.SubscriptionDetail.DefaultCurrency,
-                 RemainingAmount = customer.SubscriptionDetail.SpendingLimit,
+                 SpentThisMonth= 0,
+                 ExtraAddedCreditThisMonth = 0,
+                 RemainingCreditFromPreviousMonth = 0,
                  RemainingSMS=customer.SubscriptionDetail.SubscriptionSMS,
                  SpendingLimit=customer.SubscriptionDetail.SpendingLimit,
                  SubscriptionSMS=customer.SubscriptionDetail.SubscriptionSMS,
