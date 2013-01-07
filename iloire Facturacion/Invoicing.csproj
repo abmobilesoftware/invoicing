@@ -67,6 +67,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Rotativa">
       <HintPath>..\packages\Rotativa.1.5.0\lib\net40\Rotativa.dll</HintPath>
@@ -209,6 +212,7 @@
     <Content Include="Content\themes\base\jquery.ui.tabs.css" />
     <Content Include="Content\themes\base\jquery.ui.theme.css" />
     <Content Include="Content\bootstrap.extra.css" />
+    <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="NuGet.exe" />
     <Content Include="Rotativa\libeay32.dll" />
@@ -252,6 +256,8 @@
       <SubType>Designer</SubType>
     </Content>
     <None Include="Properties\PublishProfiles\invoicing.txtfeedback.net.pubxml" />
+    <Content Include="Views\Invoice\CreateAutoInvoices.cshtml" />
+    <Content Include="Views\Invoice\ResetSubscriptions.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
