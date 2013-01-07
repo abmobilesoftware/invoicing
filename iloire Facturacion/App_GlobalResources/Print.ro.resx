@@ -201,4 +201,12 @@
   <data name="VAT_Not_Included" xml:space="preserve">
     <value>Fără TVA</value>
   </data>
+  <data name="Invoice_Footer" xml:space="preserve">
+    <value>Plata este asteptata in termen de 30 de zile de la data emiterii facturii.
+
+Va multumim pentru ca folositi TxtFeedback.</value>
+  </data>
+  <data name="Invoice_SwiftNumber" xml:space="preserve">
+    <value>SWIFT</value>
+  </data>
 </root>

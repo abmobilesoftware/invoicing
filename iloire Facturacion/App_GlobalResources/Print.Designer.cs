@@ -124,6 +124,18 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Make all check payable to AbMobile Apps SRL-D.
+        ///Payment is due within 30 days.
+        ///
+        ///Thank you for your business..
+        /// </summary>
+        internal static string Invoice_Footer {
+            get {
+                return ResourceManager.GetString("Invoice_Footer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Item.
         /// </summary>
         internal static string Invoice_Item {
@@ -201,6 +213,15 @@ namespace Resources {
         internal static string Invoice_SubTotal {
             get {
                 return ResourceManager.GetString("Invoice_SubTotal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SWIFT.
+        /// </summary>
+        internal static string Invoice_SwiftNumber {
+            get {
+                return ResourceManager.GetString("Invoice_SwiftNumber", resourceCulture);
             }
         }
         

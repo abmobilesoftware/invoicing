@@ -201,4 +201,13 @@
   <data name="Office" xml:space="preserve">
     <value>Office</value>
   </data>
+  <data name="Invoice_Footer" xml:space="preserve">
+    <value>Make all check payable to AbMobile Apps SRL-D.
+Payment is due within 30 days.
+
+Thank you for your business.</value>
+  </data>
+  <data name="Invoice_SwiftNumber" xml:space="preserve">
+    <value>SWIFT</value>
+  </data>
 </root>
